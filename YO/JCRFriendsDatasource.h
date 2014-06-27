@@ -6,8 +6,8 @@
 //  Copyright (c) 2014 JagCesar. All rights reserved.
 //
 
-#import <Foundation/Foundation.h>
+#import <UIKit/UIKit.h>
 
-@interface JCRFriendsDatasource : NSObject
+@interface JCRFriendsDatasource : NSObject <UICollectionViewDataSource>
 
 @end

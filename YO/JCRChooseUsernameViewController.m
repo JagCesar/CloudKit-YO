@@ -7,8 +7,12 @@
 //
 
 #import "JCRChooseUsernameViewController.h"
+#import "JCRChooseUsernameDatasource.h"
 
 @interface JCRChooseUsernameViewController ()
+
+@property (nonatomic) JCRChooseUsernameDatasource *datasource;
+@property (nonatomic) IBOutlet UICollectionView *collectionView;
 
 @end
 
@@ -19,7 +23,6 @@
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
         // Custom initialization
-        [self.view setBackgroundColor:[UIColor purpleColor]];
     }
     return self;
 }
@@ -28,6 +31,10 @@
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    
+    [self setDatasource:[JCRChooseUsernameDatasource new]];
+    
+    [self.collectionView setDataSource:[self datasource]];
 }
 
 - (void)didReceiveMemoryWarning

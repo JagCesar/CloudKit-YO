@@ -6,8 +6,8 @@
 //  Copyright (c) 2014 JagCesar. All rights reserved.
 //
 
-#import <Foundation/Foundation.h>
+#import <UIKit/UIKit.h>
 
-@interface JCRChooseUsernameDatasource : NSObject
+@interface JCRChooseUsernameDatasource : NSObject <UICollectionViewDataSource>
 
 @end

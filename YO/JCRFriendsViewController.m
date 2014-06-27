@@ -7,8 +7,12 @@
 //
 
 #import "JCRFriendsViewController.h"
+#import "JCRFriendsDatasource.h"
 
 @interface JCRFriendsViewController ()
+
+@property (nonatomic) JCRFriendsDatasource *datasource;
+@property (nonatomic) IBOutlet UICollectionView *collectionView;
 
 @end
 
@@ -27,6 +31,10 @@
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    
+    [self setDatasource:[JCRFriendsDatasource new]];
+    
+    [self.collectionView setDataSource:[self datasource]];
 }
 
 - (void)didReceiveMemoryWarning

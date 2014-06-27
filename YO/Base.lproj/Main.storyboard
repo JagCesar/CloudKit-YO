@@ -55,6 +55,9 @@
                         <color key="backgroundColor" red="0.6948228195906534" green="0.0" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                         <simulatedOrientationMetrics key="simulatedOrientationMetrics" orientation="landscapeRight"/>
                     </view>
+                    <connections>
+                        <outlet property="collectionView" destination="tH6-ck-idn" id="HhU-kk-ubb"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
@@ -93,19 +96,18 @@
                                         <size key="customSize" width="320" height="72"/>
                                     </collectionViewCell>
                                 </cells>
-                                <connections>
-                                    <outlet property="dataSource" destination="04U-As-XhL" id="x22-L6-k3H"/>
-                                    <outlet property="delegate" destination="04U-As-XhL" id="JeD-da-I5f"/>
-                                </connections>
                             </collectionView>
                         </subviews>
                         <color key="backgroundColor" red="0.69482281960000003" green="0.0" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                         <simulatedOrientationMetrics key="simulatedOrientationMetrics" orientation="landscapeRight"/>
                     </view>
+                    <connections>
+                        <outlet property="collectionView" destination="QQJ-Py-VBg" id="KPZ-Uk-D2n"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="SWg-SR-gUb" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="664" y="141"/>
+            <point key="canvasLocation" x="1105" y="677"/>
         </scene>
     </scenes>
 </document>
