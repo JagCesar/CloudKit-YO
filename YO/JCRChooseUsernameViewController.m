@@ -54,6 +54,12 @@
                                                                      // Welcome back!
                                                                      // Go to friends list
                                                                      NSLog(@"Woho!");
+                                                                     UIViewController *friendsViewController = [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"friends"];
+                                                                     dispatch_async(dispatch_get_main_queue(), ^{
+                                                                         [self presentViewController:friendsViewController
+                                                                                            animated:YES
+                                                                                          completion:nil];
+                                                                     });
                                                                  } else {
                                                                      // Show collection view
                                                                      dispatch_async(dispatch_get_main_queue(), ^{
@@ -134,6 +140,12 @@
                                                                                                                 } else {
                                                                                                                     // Go to friends!
                                                                                                                     NSLog(@"Woho!");
+                                                                                                                    UIViewController *friendsViewController = [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"friends"];
+                                                                                                                    dispatch_async(dispatch_get_main_queue(), ^{
+                                                                                                                        [self presentViewController:friendsViewController
+                                                                                                                                           animated:YES
+                                                                                                                                         completion:nil];
+                                                                                                                    });
                                                                                                                 }
                                                                                                             }];
                                                          }

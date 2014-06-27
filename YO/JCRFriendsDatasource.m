@@ -14,12 +14,12 @@
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView
      numberOfItemsInSection:(NSInteger)section {
-    return 2;
+    return 1;
 }
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView
                   cellForItemAtIndexPath:(NSIndexPath *)indexPath {
-    UICollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"cell"
+    UICollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"labelCell"
                                                                            forIndexPath:indexPath];
     return cell;
 }
