@@ -18,6 +18,7 @@
 @property (nonatomic) JCRChooseUsernameDatasource *datasource;
 @property (nonatomic) JCRChooseUsernameDelegate *delegate;
 @property (nonatomic) IBOutlet UICollectionView *collectionView;
+@property (nonatomic) CKRecordID *userRecord;
 
 @end
 
@@ -36,6 +37,32 @@
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    
+    [self.collectionView setHidden:YES];
+    
+    [[CKContainer defaultContainer] fetchUserRecordIDWithCompletionHandler:^(CKRecordID *recordID, NSError *error) {
+        if (error) {
+            
+        } else {
+            [self setUserRecord:recordID];
+            
+            [[[CKContainer defaultContainer] publicCloudDatabase] performQuery:[[CKQuery alloc] initWithRecordType:@"username"
+                                                                                                         predicate:[NSPredicate predicateWithFormat:@"creatorUserRecordID = %@", recordID]]
+                                                                  inZoneWithID:nil
+                                                             completionHandler:^(NSArray *results, NSError *error) {
+                                                                 if (error || results.count > 0) {
+                                                                     // Welcome back!
+                                                                     // Go to friends list
+                                                                     NSLog(@"Woho!");
+                                                                 } else {
+                                                                     // Show collection view
+                                                                     dispatch_async(dispatch_get_main_queue(), ^{
+                                                                         [self.collectionView setHidden:NO];
+                                                                     });
+                                                                 }
+                                                             }];
+        }
+    }];
     
     [self setDatasource:[JCRChooseUsernameDatasource new]];
     [self setDelegate:[JCRChooseUsernameDelegate new]];
@@ -106,6 +133,7 @@
                                                                                                                     [labelCell.label setHidden:NO];
                                                                                                                 } else {
                                                                                                                     // Go to friends!
+                                                                                                                    NSLog(@"Woho!");
                                                                                                                 }
                                                                                                             }];
                                                          }

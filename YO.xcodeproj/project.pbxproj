@@ -19,7 +19,7 @@
 		DBFB0CEC195DA89E00441233 /* JCRLabelCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = DBFB0CEB195DA89E00441233 /* JCRLabelCollectionViewCell.m */; };
 		DBFB0CEF195DA8C600441233 /* JCRTextFieldCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = DBFB0CEE195DA8C600441233 /* JCRTextFieldCollectionViewCell.m */; };
 		DBFB0CF2195DAA2300441233 /* JCRChooseUsernameDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = DBFB0CF1195DAA2300441233 /* JCRChooseUsernameDelegate.m */; };
-		DBFB0CF5195DAE2800441233 /* CloudKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DBFB0CF4195DAE2800441233 /* CloudKit.framework */; };
+		DBFB0CF8195DC2DB00441233 /* CloudKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DBFB0CF7195DC2DB00441233 /* CloudKit.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -58,7 +58,7 @@
 		DBFB0CF0195DAA2300441233 /* JCRChooseUsernameDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JCRChooseUsernameDelegate.h; sourceTree = "<group>"; };
 		DBFB0CF1195DAA2300441233 /* JCRChooseUsernameDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JCRChooseUsernameDelegate.m; sourceTree = "<group>"; };
 		DBFB0CF3195DAE1500441233 /* YO.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = YO.entitlements; sourceTree = "<group>"; };
-		DBFB0CF4195DAE2800441233 /* CloudKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CloudKit.framework; path = System/Library/Frameworks/CloudKit.framework; sourceTree = SDKROOT; };
+		DBFB0CF7195DC2DB00441233 /* CloudKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CloudKit.framework; path = System/Library/Frameworks/CloudKit.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -66,7 +66,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				DBFB0CF5195DAE2800441233 /* CloudKit.framework in Frameworks */,
+				DBFB0CF8195DC2DB00441233 /* CloudKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -83,7 +83,7 @@
 		DBFB0CAB195DA13E00441233 = {
 			isa = PBXGroup;
 			children = (
-				DBFB0CF4195DAE2800441233 /* CloudKit.framework */,
+				DBFB0CF7195DC2DB00441233 /* CloudKit.framework */,
 				DBFB0CB6195DA13E00441233 /* YO */,
 				DBFB0CCD195DA13E00441233 /* YOTests */,
 				DBFB0CB5195DA13E00441233 /* Products */,
