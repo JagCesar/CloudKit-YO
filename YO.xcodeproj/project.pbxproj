@@ -14,6 +14,8 @@
 		DBFB0CD1195DA13E00441233 /* YOTests.m in Sources */ = {isa = PBXBuildFile; fileRef = DBFB0CD0195DA13E00441233 /* YOTests.m */; };
 		DBFB0CDD195DA2CE00441233 /* JCRChooseUsernameViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DBFB0CDC195DA2CE00441233 /* JCRChooseUsernameViewController.m */; };
 		DBFB0CE0195DA36C00441233 /* JCRFriendsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DBFB0CDF195DA36C00441233 /* JCRFriendsViewController.m */; };
+		DBFB0CE5195DA56500441233 /* JCRChooseUsernameDatasource.m in Sources */ = {isa = PBXBuildFile; fileRef = DBFB0CE4195DA56500441233 /* JCRChooseUsernameDatasource.m */; };
+		DBFB0CE8195DA57A00441233 /* JCRFriendsDatasource.m in Sources */ = {isa = PBXBuildFile; fileRef = DBFB0CE7195DA57A00441233 /* JCRFriendsDatasource.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -41,6 +43,10 @@
 		DBFB0CDC195DA2CE00441233 /* JCRChooseUsernameViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JCRChooseUsernameViewController.m; sourceTree = "<group>"; };
 		DBFB0CDE195DA36C00441233 /* JCRFriendsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JCRFriendsViewController.h; sourceTree = "<group>"; };
 		DBFB0CDF195DA36C00441233 /* JCRFriendsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JCRFriendsViewController.m; sourceTree = "<group>"; };
+		DBFB0CE3195DA56500441233 /* JCRChooseUsernameDatasource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JCRChooseUsernameDatasource.h; sourceTree = "<group>"; };
+		DBFB0CE4195DA56500441233 /* JCRChooseUsernameDatasource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JCRChooseUsernameDatasource.m; sourceTree = "<group>"; };
+		DBFB0CE6195DA57A00441233 /* JCRFriendsDatasource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JCRFriendsDatasource.h; sourceTree = "<group>"; };
+		DBFB0CE7195DA57A00441233 /* JCRFriendsDatasource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JCRFriendsDatasource.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -82,6 +88,7 @@
 		DBFB0CB6195DA13E00441233 /* YO */ = {
 			isa = PBXGroup;
 			children = (
+				DBFB0CE2195DA53B00441233 /* Objects */,
 				DBFB0CDA195DA1B200441233 /* ViewControllers */,
 				DBFB0CBB195DA13E00441233 /* AppDelegate.h */,
 				DBFB0CBC195DA13E00441233 /* AppDelegate.m */,
@@ -127,6 +134,17 @@
 				DBFB0CDF195DA36C00441233 /* JCRFriendsViewController.m */,
 			);
 			name = ViewControllers;
+			sourceTree = "<group>";
+		};
+		DBFB0CE2195DA53B00441233 /* Objects */ = {
+			isa = PBXGroup;
+			children = (
+				DBFB0CE3195DA56500441233 /* JCRChooseUsernameDatasource.h */,
+				DBFB0CE4195DA56500441233 /* JCRChooseUsernameDatasource.m */,
+				DBFB0CE6195DA57A00441233 /* JCRFriendsDatasource.h */,
+				DBFB0CE7195DA57A00441233 /* JCRFriendsDatasource.m */,
+			);
+			name = Objects;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -230,7 +248,9 @@
 			files = (
 				DBFB0CDD195DA2CE00441233 /* JCRChooseUsernameViewController.m in Sources */,
 				DBFB0CBD195DA13E00441233 /* AppDelegate.m in Sources */,
+				DBFB0CE8195DA57A00441233 /* JCRFriendsDatasource.m in Sources */,
 				DBFB0CE0195DA36C00441233 /* JCRFriendsViewController.m in Sources */,
+				DBFB0CE5195DA56500441233 /* JCRChooseUsernameDatasource.m in Sources */,
 				DBFB0CBA195DA13E00441233 /* main.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
