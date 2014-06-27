@@ -89,12 +89,12 @@
                                                                                                  predicate:[NSPredicate predicateWithFormat:@"username = %@", username]]
                                                           inZoneWithID:nil
                                                      completionHandler:^(NSArray *results, NSError *error) {
-                                                         if (error) {
-                                                             [labelCell.activityIndicatorView stopAnimating];
-                                                             [labelCell.label setHidden:NO];
-                                                         } else if (results.count > 0) {
-                                                             [labelCell.activityIndicatorView stopAnimating];
-                                                             [labelCell.label setHidden:NO];
+                                                         if (error || results.count > 0) {
+                                                             dispatch_async(dispatch_get_main_queue(), ^{
+                                                                 [labelCell.label setText:@"USERNAME TAKEN"];
+                                                                 [labelCell.activityIndicatorView stopAnimating];
+                                                                 [labelCell.label setHidden:NO];
+                                                             });
                                                          } else {
                                                              // Create username
                                                              CKRecord *record = [[CKRecord alloc] initWithRecordType:@"username"];
