@@ -8,6 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface JCRChooseUsernameViewController : UIViewController
+@interface JCRChooseUsernameViewController : UIViewController <UITextFieldDelegate>
 
 @end

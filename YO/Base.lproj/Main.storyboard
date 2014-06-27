@@ -38,6 +38,9 @@
                                                     <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                                     <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="53"/>
                                                     <textInputTraits key="textInputTraits"/>
+                                                    <connections>
+                                                        <outlet property="delegate" destination="BYZ-38-t0r" id="sbE-B7-M8R"/>
+                                                    </connections>
                                                 </textField>
                                             </subviews>
                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
@@ -50,6 +53,9 @@
                                             <constraint firstAttribute="trailing" secondItem="xDm-4b-vK3" secondAttribute="trailing" id="znq-Jf-0lK"/>
                                         </constraints>
                                         <size key="customSize" width="320" height="72"/>
+                                        <connections>
+                                            <outlet property="textField" destination="xDm-4b-vK3" id="IE8-Ws-PL8"/>
+                                        </connections>
                                     </collectionViewCell>
                                     <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="labelCell" id="WvR-zz-Toz" customClass="JCRLabelCollectionViewCell">
                                         <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
@@ -64,17 +70,26 @@
                                                     <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
+                                                <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="nFz-fC-lZD">
+                                                    <rect key="frame" x="142" y="17" width="37" height="37"/>
+                                                </activityIndicatorView>
                                             </subviews>
                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         </view>
                                         <color key="backgroundColor" red="0.0" green="0.41147977600611352" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                         <constraints>
+                                            <constraint firstAttribute="centerX" secondItem="nFz-fC-lZD" secondAttribute="centerX" constant="-0.5" id="Eid-gX-hip"/>
                                             <constraint firstItem="hQh-yo-lKP" firstAttribute="leading" secondItem="WvR-zz-Toz" secondAttribute="leading" id="Ruo-3d-SLo"/>
                                             <constraint firstAttribute="trailing" secondItem="hQh-yo-lKP" secondAttribute="trailing" id="Wkf-KS-Xx5"/>
                                             <constraint firstItem="hQh-yo-lKP" firstAttribute="top" secondItem="WvR-zz-Toz" secondAttribute="top" id="Ysa-Qb-bkZ"/>
+                                            <constraint firstAttribute="centerY" secondItem="nFz-fC-lZD" secondAttribute="centerY" constant="0.5" id="ei3-sk-w1R"/>
                                             <constraint firstAttribute="bottom" secondItem="hQh-yo-lKP" secondAttribute="bottom" id="gVD-Z9-bmZ"/>
                                         </constraints>
                                         <size key="customSize" width="320" height="72"/>
+                                        <connections>
+                                            <outlet property="activityIndicatorView" destination="nFz-fC-lZD" id="Oq6-tX-6Lp"/>
+                                            <outlet property="label" destination="hQh-yo-lKP" id="lM3-bh-lzZ"/>
+                                        </connections>
                                     </collectionViewCell>
                                 </cells>
                                 <connections>

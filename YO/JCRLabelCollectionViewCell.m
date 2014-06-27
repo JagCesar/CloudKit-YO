@@ -8,6 +8,10 @@
 
 #import "JCRLabelCollectionViewCell.h"
 
+@interface JCRLabelCollectionViewCell ()
+
+@end
+
 @implementation JCRLabelCollectionViewCell
 
 - (instancetype)initWithFrame:(CGRect)frameRect

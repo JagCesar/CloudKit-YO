@@ -19,6 +19,7 @@
 		DBFB0CEC195DA89E00441233 /* JCRLabelCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = DBFB0CEB195DA89E00441233 /* JCRLabelCollectionViewCell.m */; };
 		DBFB0CEF195DA8C600441233 /* JCRTextFieldCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = DBFB0CEE195DA8C600441233 /* JCRTextFieldCollectionViewCell.m */; };
 		DBFB0CF2195DAA2300441233 /* JCRChooseUsernameDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = DBFB0CF1195DAA2300441233 /* JCRChooseUsernameDelegate.m */; };
+		DBFB0CF5195DAE2800441233 /* CloudKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DBFB0CF4195DAE2800441233 /* CloudKit.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -56,6 +57,8 @@
 		DBFB0CEE195DA8C600441233 /* JCRTextFieldCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JCRTextFieldCollectionViewCell.m; sourceTree = "<group>"; };
 		DBFB0CF0195DAA2300441233 /* JCRChooseUsernameDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JCRChooseUsernameDelegate.h; sourceTree = "<group>"; };
 		DBFB0CF1195DAA2300441233 /* JCRChooseUsernameDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JCRChooseUsernameDelegate.m; sourceTree = "<group>"; };
+		DBFB0CF3195DAE1500441233 /* YO.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = YO.entitlements; sourceTree = "<group>"; };
+		DBFB0CF4195DAE2800441233 /* CloudKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CloudKit.framework; path = System/Library/Frameworks/CloudKit.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -63,6 +66,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DBFB0CF5195DAE2800441233 /* CloudKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -79,6 +83,7 @@
 		DBFB0CAB195DA13E00441233 = {
 			isa = PBXGroup;
 			children = (
+				DBFB0CF4195DAE2800441233 /* CloudKit.framework */,
 				DBFB0CB6195DA13E00441233 /* YO */,
 				DBFB0CCD195DA13E00441233 /* YOTests */,
 				DBFB0CB5195DA13E00441233 /* Products */,
@@ -97,6 +102,7 @@
 		DBFB0CB6195DA13E00441233 /* YO */ = {
 			isa = PBXGroup;
 			children = (
+				DBFB0CF3195DAE1500441233 /* YO.entitlements */,
 				DBFB0CE9195DA86C00441233 /* Views */,
 				DBFB0CE2195DA53B00441233 /* Objects */,
 				DBFB0CDA195DA1B200441233 /* ViewControllers */,
@@ -219,6 +225,12 @@
 				TargetAttributes = {
 					DBFB0CB3195DA13E00441233 = {
 						CreatedOnToolsVersion = 6.0;
+						DevelopmentTeam = UACPD8D292;
+						SystemCapabilities = {
+							com.apple.iCloud = {
+								enabled = 1;
+							};
+						};
 					};
 					DBFB0CC9195DA13E00441233 = {
 						CreatedOnToolsVersion = 6.0;
@@ -394,9 +406,13 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CODE_SIGN_ENTITLEMENTS = YO/YO.entitlements;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				INFOPLIST_FILE = YO/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 			};
 			name = Debug;
 		};
@@ -405,9 +421,13 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CODE_SIGN_ENTITLEMENTS = YO/YO.entitlements;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				INFOPLIST_FILE = YO/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 			};
 			name = Release;
 		};

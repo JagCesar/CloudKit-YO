@@ -10,4 +10,7 @@
 
 @interface JCRLabelCollectionViewCell : UICollectionViewCell
 
+@property (nonatomic) IBOutlet UIActivityIndicatorView *activityIndicatorView;
+@property (nonatomic) IBOutlet UILabel *label;
+
 @end

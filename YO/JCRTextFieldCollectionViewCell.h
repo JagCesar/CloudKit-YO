@@ -10,4 +10,6 @@
 
 @interface JCRTextFieldCollectionViewCell : UICollectionViewCell
 
+@property (nonatomic) IBOutlet UITextField *textField;
+
 @end

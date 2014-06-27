@@ -28,4 +28,13 @@ minimumInteritemSpacingForSectionAtIndex:(NSInteger)section {
     return 0.f;
 }
 
+- (void)collectionView:(UICollectionView *)collectionView
+didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
+    if ([indexPath section] == 0 && [indexPath row] == 1) {
+        if ([self chooseNickBlock]) {
+            self.chooseNickBlock();
+        }
+    }
+}
+
 @end
