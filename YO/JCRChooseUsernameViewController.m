@@ -8,10 +8,12 @@
 
 #import "JCRChooseUsernameViewController.h"
 #import "JCRChooseUsernameDatasource.h"
+#import "JCRChooseUsernameDelegate.h"
 
 @interface JCRChooseUsernameViewController ()
 
 @property (nonatomic) JCRChooseUsernameDatasource *datasource;
+@property (nonatomic) JCRChooseUsernameDelegate *delegate;
 @property (nonatomic) IBOutlet UICollectionView *collectionView;
 
 @end
@@ -33,8 +35,10 @@
     // Do any additional setup after loading the view.
     
     [self setDatasource:[JCRChooseUsernameDatasource new]];
+    [self setDelegate:[JCRChooseUsernameDelegate new]];
     
     [self.collectionView setDataSource:[self datasource]];
+    [self.collectionView setDelegate:[self delegate]];
 }
 
 - (void)didReceiveMemoryWarning

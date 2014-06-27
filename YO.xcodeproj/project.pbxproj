@@ -16,6 +16,9 @@
 		DBFB0CE0195DA36C00441233 /* JCRFriendsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DBFB0CDF195DA36C00441233 /* JCRFriendsViewController.m */; };
 		DBFB0CE5195DA56500441233 /* JCRChooseUsernameDatasource.m in Sources */ = {isa = PBXBuildFile; fileRef = DBFB0CE4195DA56500441233 /* JCRChooseUsernameDatasource.m */; };
 		DBFB0CE8195DA57A00441233 /* JCRFriendsDatasource.m in Sources */ = {isa = PBXBuildFile; fileRef = DBFB0CE7195DA57A00441233 /* JCRFriendsDatasource.m */; };
+		DBFB0CEC195DA89E00441233 /* JCRLabelCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = DBFB0CEB195DA89E00441233 /* JCRLabelCollectionViewCell.m */; };
+		DBFB0CEF195DA8C600441233 /* JCRTextFieldCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = DBFB0CEE195DA8C600441233 /* JCRTextFieldCollectionViewCell.m */; };
+		DBFB0CF2195DAA2300441233 /* JCRChooseUsernameDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = DBFB0CF1195DAA2300441233 /* JCRChooseUsernameDelegate.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -47,6 +50,12 @@
 		DBFB0CE4195DA56500441233 /* JCRChooseUsernameDatasource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JCRChooseUsernameDatasource.m; sourceTree = "<group>"; };
 		DBFB0CE6195DA57A00441233 /* JCRFriendsDatasource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JCRFriendsDatasource.h; sourceTree = "<group>"; };
 		DBFB0CE7195DA57A00441233 /* JCRFriendsDatasource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JCRFriendsDatasource.m; sourceTree = "<group>"; };
+		DBFB0CEA195DA89E00441233 /* JCRLabelCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JCRLabelCollectionViewCell.h; sourceTree = "<group>"; };
+		DBFB0CEB195DA89E00441233 /* JCRLabelCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JCRLabelCollectionViewCell.m; sourceTree = "<group>"; };
+		DBFB0CED195DA8C600441233 /* JCRTextFieldCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JCRTextFieldCollectionViewCell.h; sourceTree = "<group>"; };
+		DBFB0CEE195DA8C600441233 /* JCRTextFieldCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JCRTextFieldCollectionViewCell.m; sourceTree = "<group>"; };
+		DBFB0CF0195DAA2300441233 /* JCRChooseUsernameDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JCRChooseUsernameDelegate.h; sourceTree = "<group>"; };
+		DBFB0CF1195DAA2300441233 /* JCRChooseUsernameDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JCRChooseUsernameDelegate.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -88,6 +97,7 @@
 		DBFB0CB6195DA13E00441233 /* YO */ = {
 			isa = PBXGroup;
 			children = (
+				DBFB0CE9195DA86C00441233 /* Views */,
 				DBFB0CE2195DA53B00441233 /* Objects */,
 				DBFB0CDA195DA1B200441233 /* ViewControllers */,
 				DBFB0CBB195DA13E00441233 /* AppDelegate.h */,
@@ -143,8 +153,21 @@
 				DBFB0CE4195DA56500441233 /* JCRChooseUsernameDatasource.m */,
 				DBFB0CE6195DA57A00441233 /* JCRFriendsDatasource.h */,
 				DBFB0CE7195DA57A00441233 /* JCRFriendsDatasource.m */,
+				DBFB0CF0195DAA2300441233 /* JCRChooseUsernameDelegate.h */,
+				DBFB0CF1195DAA2300441233 /* JCRChooseUsernameDelegate.m */,
 			);
 			name = Objects;
+			sourceTree = "<group>";
+		};
+		DBFB0CE9195DA86C00441233 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				DBFB0CEA195DA89E00441233 /* JCRLabelCollectionViewCell.h */,
+				DBFB0CEB195DA89E00441233 /* JCRLabelCollectionViewCell.m */,
+				DBFB0CED195DA8C600441233 /* JCRTextFieldCollectionViewCell.h */,
+				DBFB0CEE195DA8C600441233 /* JCRTextFieldCollectionViewCell.m */,
+			);
+			name = Views;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -247,11 +270,14 @@
 			buildActionMask = 2147483647;
 			files = (
 				DBFB0CDD195DA2CE00441233 /* JCRChooseUsernameViewController.m in Sources */,
+				DBFB0CF2195DAA2300441233 /* JCRChooseUsernameDelegate.m in Sources */,
 				DBFB0CBD195DA13E00441233 /* AppDelegate.m in Sources */,
 				DBFB0CE8195DA57A00441233 /* JCRFriendsDatasource.m in Sources */,
 				DBFB0CE0195DA36C00441233 /* JCRFriendsViewController.m in Sources */,
+				DBFB0CEF195DA8C600441233 /* JCRTextFieldCollectionViewCell.m in Sources */,
 				DBFB0CE5195DA56500441233 /* JCRChooseUsernameDatasource.m in Sources */,
 				DBFB0CBA195DA13E00441233 /* main.m in Sources */,
+				DBFB0CEC195DA89E00441233 /* JCRLabelCollectionViewCell.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

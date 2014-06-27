@@ -19,8 +19,14 @@
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView
                   cellForItemAtIndexPath:(NSIndexPath *)indexPath {
-    UICollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"textfieldCell"
-                                                                           forIndexPath:indexPath];
+    UICollectionViewCell *cell = nil;
+    if ([indexPath row] == 0) {
+        cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"textfieldCell"
+                                                         forIndexPath:indexPath];
+    } else {
+        cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"labelCell"
+                                                         forIndexPath:indexPath];
+    }
     return cell;
 }
 
