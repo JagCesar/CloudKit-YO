@@ -9,10 +9,11 @@
 /* Begin PBXBuildFile section */
 		DBFB0CBA195DA13E00441233 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = DBFB0CB9195DA13E00441233 /* main.m */; };
 		DBFB0CBD195DA13E00441233 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = DBFB0CBC195DA13E00441233 /* AppDelegate.m */; };
-		DBFB0CC0195DA13E00441233 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DBFB0CBF195DA13E00441233 /* ViewController.m */; };
 		DBFB0CC3195DA13E00441233 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DBFB0CC1195DA13E00441233 /* Main.storyboard */; };
 		DBFB0CC5195DA13E00441233 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DBFB0CC4195DA13E00441233 /* Images.xcassets */; };
 		DBFB0CD1195DA13E00441233 /* YOTests.m in Sources */ = {isa = PBXBuildFile; fileRef = DBFB0CD0195DA13E00441233 /* YOTests.m */; };
+		DBFB0CDD195DA2CE00441233 /* JCRChooseUsernameViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DBFB0CDC195DA2CE00441233 /* JCRChooseUsernameViewController.m */; };
+		DBFB0CE0195DA36C00441233 /* JCRFriendsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DBFB0CDF195DA36C00441233 /* JCRFriendsViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -31,13 +32,15 @@
 		DBFB0CB9195DA13E00441233 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		DBFB0CBB195DA13E00441233 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		DBFB0CBC195DA13E00441233 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
-		DBFB0CBE195DA13E00441233 /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
-		DBFB0CBF195DA13E00441233 /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
 		DBFB0CC2195DA13E00441233 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		DBFB0CC4195DA13E00441233 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		DBFB0CCA195DA13E00441233 /* YOTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = YOTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		DBFB0CCF195DA13E00441233 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		DBFB0CD0195DA13E00441233 /* YOTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = YOTests.m; sourceTree = "<group>"; };
+		DBFB0CDB195DA2CE00441233 /* JCRChooseUsernameViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JCRChooseUsernameViewController.h; sourceTree = "<group>"; };
+		DBFB0CDC195DA2CE00441233 /* JCRChooseUsernameViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JCRChooseUsernameViewController.m; sourceTree = "<group>"; };
+		DBFB0CDE195DA36C00441233 /* JCRFriendsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JCRFriendsViewController.h; sourceTree = "<group>"; };
+		DBFB0CDF195DA36C00441233 /* JCRFriendsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JCRFriendsViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -79,10 +82,9 @@
 		DBFB0CB6195DA13E00441233 /* YO */ = {
 			isa = PBXGroup;
 			children = (
+				DBFB0CDA195DA1B200441233 /* ViewControllers */,
 				DBFB0CBB195DA13E00441233 /* AppDelegate.h */,
 				DBFB0CBC195DA13E00441233 /* AppDelegate.m */,
-				DBFB0CBE195DA13E00441233 /* ViewController.h */,
-				DBFB0CBF195DA13E00441233 /* ViewController.m */,
 				DBFB0CC1195DA13E00441233 /* Main.storyboard */,
 				DBFB0CC4195DA13E00441233 /* Images.xcassets */,
 				DBFB0CB7195DA13E00441233 /* Supporting Files */,
@@ -114,6 +116,17 @@
 				DBFB0CCF195DA13E00441233 /* Info.plist */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		DBFB0CDA195DA1B200441233 /* ViewControllers */ = {
+			isa = PBXGroup;
+			children = (
+				DBFB0CDB195DA2CE00441233 /* JCRChooseUsernameViewController.h */,
+				DBFB0CDC195DA2CE00441233 /* JCRChooseUsernameViewController.m */,
+				DBFB0CDE195DA36C00441233 /* JCRFriendsViewController.h */,
+				DBFB0CDF195DA36C00441233 /* JCRFriendsViewController.m */,
+			);
+			name = ViewControllers;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -215,8 +228,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				DBFB0CC0195DA13E00441233 /* ViewController.m in Sources */,
+				DBFB0CDD195DA2CE00441233 /* JCRChooseUsernameViewController.m in Sources */,
 				DBFB0CBD195DA13E00441233 /* AppDelegate.m in Sources */,
+				DBFB0CE0195DA36C00441233 /* JCRFriendsViewController.m in Sources */,
 				DBFB0CBA195DA13E00441233 /* main.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -406,6 +420,7 @@
 				DBFB0CD6195DA13E00441233 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		DBFB0CD7195DA13E00441233 /* Build configuration list for PBXNativeTarget "YOTests" */ = {
 			isa = XCConfigurationList;
@@ -414,6 +429,7 @@
 				DBFB0CD9195DA13E00441233 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

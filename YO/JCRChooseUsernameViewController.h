@@ -1,5 +1,5 @@
 //
-//  ViewController.h
+//  JCRChooseUsernameViewController.h
 //  YO
 //
 //  Created by César Manuel Pinto Castillo on 27/06/14.
@@ -8,8 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface ViewController : UIViewController
-
+@interface JCRChooseUsernameViewController : UIViewController
 
 @end
-
