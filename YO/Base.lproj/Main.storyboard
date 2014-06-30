@@ -135,7 +135,7 @@
                                     <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                                 </collectionViewFlowLayout>
                                 <cells>
-                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="labelCell" id="Zb7-gf-OCV" customClass="JCRLabelCollectionViewCell">
+                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="addFriendCell" id="Zb7-gf-OCV" customClass="JCRAddFriendCollectionViewCell">
                                         <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
@@ -145,28 +145,42 @@
                                                 <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="ASL-pz-HIG">
                                                     <rect key="frame" x="142" y="17" width="37" height="37"/>
                                                 </activityIndicatorView>
-                                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="+" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" adjustsLetterSpacingToFitWidth="YES" translatesAutoresizingMaskIntoConstraints="NO" id="qfu-57-3iZ">
-                                                    <rect key="frame" x="99" y="0.0" width="123" height="72"/>
+                                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="+" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" adjustsLetterSpacingToFitWidth="YES" translatesAutoresizingMaskIntoConstraints="NO" id="qfu-57-3iZ">
+                                                    <rect key="frame" x="0.0" y="0.0" width="320" height="72"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="54"/>
                                                     <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
+                                                <textField hidden="YES" opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="TYPE USERNAME TO ADD" textAlignment="center" minimumFontSize="10" translatesAutoresizingMaskIntoConstraints="NO" id="qbB-29-z0O">
+                                                    <rect key="frame" x="0.0" y="0.0" width="320" height="72"/>
+                                                    <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="50"/>
+                                                    <textInputTraits key="textInputTraits" autocapitalizationType="allCharacters"/>
+                                                    <connections>
+                                                        <outlet property="delegate" destination="04U-As-XhL" id="kQc-z8-2xp"/>
+                                                    </connections>
+                                                </textField>
                                             </subviews>
                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         </view>
                                         <color key="backgroundColor" red="0.0" green="0.41147977600000002" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                         <constraints>
+                                            <constraint firstItem="qbB-29-z0O" firstAttribute="top" secondItem="Zb7-gf-OCV" secondAttribute="top" id="71L-ah-eNy"/>
+                                            <constraint firstAttribute="bottom" secondItem="qbB-29-z0O" secondAttribute="bottom" id="FzK-NL-GeW"/>
                                             <constraint firstAttribute="bottom" secondItem="qfu-57-3iZ" secondAttribute="bottom" id="N7h-y0-NLR"/>
+                                            <constraint firstAttribute="trailing" secondItem="qbB-29-z0O" secondAttribute="trailing" id="NX7-iZ-9io"/>
                                             <constraint firstItem="qfu-57-3iZ" firstAttribute="top" secondItem="Zb7-gf-OCV" secondAttribute="top" id="UIl-nP-Ndb"/>
                                             <constraint firstAttribute="trailing" secondItem="qfu-57-3iZ" secondAttribute="trailing" id="akh-7U-52Y"/>
                                             <constraint firstAttribute="centerY" secondItem="ASL-pz-HIG" secondAttribute="centerY" constant="0.5" id="cNp-2J-QOd"/>
+                                            <constraint firstItem="qbB-29-z0O" firstAttribute="leading" secondItem="Zb7-gf-OCV" secondAttribute="leading" id="lsw-a9-xe1"/>
                                             <constraint firstAttribute="centerX" secondItem="ASL-pz-HIG" secondAttribute="centerX" constant="-0.5" id="viq-LU-82i"/>
                                             <constraint firstItem="qfu-57-3iZ" firstAttribute="leading" secondItem="Zb7-gf-OCV" secondAttribute="leading" id="wWO-Ey-9yi"/>
                                         </constraints>
                                         <size key="customSize" width="320" height="72"/>
                                         <connections>
-                                            <outlet property="activityIndicatorView" destination="ASL-pz-HIG" id="77a-lJ-sH5"/>
-                                            <outlet property="label" destination="qfu-57-3iZ" id="J3p-WD-Fhe"/>
+                                            <outlet property="activityIndicatorView" destination="ASL-pz-HIG" id="aFw-4o-PBF"/>
+                                            <outlet property="label" destination="qfu-57-3iZ" id="Leo-Cs-1dq"/>
+                                            <outlet property="textField" destination="qbB-29-z0O" id="tyF-vQ-Kdy"/>
                                         </connections>
                                     </collectionViewCell>
                                 </cells>
@@ -185,7 +199,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="SWg-SR-gUb" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1105" y="677"/>
+            <point key="canvasLocation" x="745" y="141"/>
         </scene>
     </scenes>
 </document>

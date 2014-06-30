@@ -8,10 +8,14 @@
 
 #import "JCRFriendsViewController.h"
 #import "JCRFriendsDatasource.h"
+#import "JCRAddFriendCollectionViewCell.h"
+#import "JCRFriendsDelegate.h"
+@import CloudKit;
 
-@interface JCRFriendsViewController ()
+@interface JCRFriendsViewController () <UITextFieldDelegate>
 
 @property (nonatomic) JCRFriendsDatasource *datasource;
+@property (nonatomic) JCRFriendsDelegate *delegate;
 @property (nonatomic) IBOutlet UICollectionView *collectionView;
 
 @end
@@ -33,8 +37,17 @@
     // Do any additional setup after loading the view.
     
     [self setDatasource:[JCRFriendsDatasource new]];
+    [self setDelegate:[JCRFriendsDelegate new]];
     
     [self.collectionView setDataSource:[self datasource]];
+    [self.collectionView setDelegate:[self delegate]];
+    
+    __weak typeof(self) weakSelf = self;
+    [self.delegate setAddFriendBlock:^{
+        __strong typeof(self) strongSelf = weakSelf;
+        JCRAddFriendCollectionViewCell *cell = (JCRAddFriendCollectionViewCell*)[strongSelf.collectionView cellForItemAtIndexPath:[NSIndexPath indexPathForRow:[strongSelf.collectionView numberOfItemsInSection:0]-1 inSection:0]];
+        [cell.textField becomeFirstResponder];
+    }];
 }
 
 - (void)didReceiveMemoryWarning
@@ -53,5 +66,46 @@
     // Pass the selected object to the new view controller.
 }
 */
+
+#pragma mark - Private
+
+- (void)__addFriendWithUsername:(NSString*)username {
+    
+}
+
+#pragma mark - UITextFieldDelegate
+
+- (void)textFieldDidBeginEditing:(UITextField *)textField {
+    JCRAddFriendCollectionViewCell *cell = (JCRAddFriendCollectionViewCell*)[textField.superview superview];
+    [cell.label setHidden:YES];
+    [cell.textField setHidden:NO];
+    [self.collectionView setContentInset:UIEdgeInsetsMake(0.f, 0.f, 216.f, 0.f)];
+}
+
+- (BOOL)textFieldShouldReturn:(UITextField *)textField {
+    // Add to data source
+    
+//    NSString *username = [textField text];
+//    JCRAddFriendCollectionViewCell *cell = (JCRAddFriendCollectionViewCell*)[textField superview];
+//    [cell.textField resignFirstResponder];
+//    [cell.textField setHidden:YES];
+//    [cell.activityIndicatorView startAnimating];
+//    NSIndexPath *indexPath = [self.collectionView indexPathForCell:cell];
+//    
+//    __weak typeof(self) weakSelf = self;
+//    [[[CKContainer defaultContainer] publicCloudDatabase] performQuery:[[CKQuery alloc]
+//                                                                        initWithRecordType:@"username"
+//                                                                        predicate:[NSPredicate
+//                                                                                   predicateWithFormat:@"username = %@", username]]
+//                                                          inZoneWithID:nil
+//                                                     completionHandler:^(NSArray *results, NSError *error) {
+//                                                         __strong typeof(self) strongSelf = weakSelf;
+//                                                         if ([self.collectionView.indexPathsForVisibleItems containsObject:indexPath]) {
+//                                                             
+//                                                         }
+//                                                     }];
+    
+    return YES;
+}
 
 @end

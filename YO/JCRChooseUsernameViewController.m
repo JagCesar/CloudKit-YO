@@ -13,7 +13,7 @@
 #import "JCRTextFieldCollectionViewCell.h"
 @import CloudKit;
 
-@interface JCRChooseUsernameViewController ()
+@interface JCRChooseUsernameViewController () <UITextFieldDelegate>
 
 @property (nonatomic) JCRChooseUsernameDatasource *datasource;
 @property (nonatomic) JCRChooseUsernameDelegate *delegate;

@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		DB610EA1196166840024CECD /* JCRAddFriendCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = DB610EA0196166840024CECD /* JCRAddFriendCollectionViewCell.m */; };
+		DB610EA4196172BA0024CECD /* JCRFriendsDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = DB610EA3196172BA0024CECD /* JCRFriendsDelegate.m */; };
 		DBFB0CBA195DA13E00441233 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = DBFB0CB9195DA13E00441233 /* main.m */; };
 		DBFB0CBD195DA13E00441233 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = DBFB0CBC195DA13E00441233 /* AppDelegate.m */; };
 		DBFB0CC3195DA13E00441233 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DBFB0CC1195DA13E00441233 /* Main.storyboard */; };
@@ -33,6 +35,10 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		DB610E9F196166840024CECD /* JCRAddFriendCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JCRAddFriendCollectionViewCell.h; sourceTree = "<group>"; };
+		DB610EA0196166840024CECD /* JCRAddFriendCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JCRAddFriendCollectionViewCell.m; sourceTree = "<group>"; };
+		DB610EA2196172BA0024CECD /* JCRFriendsDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JCRFriendsDelegate.h; sourceTree = "<group>"; };
+		DB610EA3196172BA0024CECD /* JCRFriendsDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JCRFriendsDelegate.m; sourceTree = "<group>"; };
 		DBFB0CB4195DA13E00441233 /* YO.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = YO.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		DBFB0CB8195DA13E00441233 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		DBFB0CB9195DA13E00441233 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -161,6 +167,8 @@
 				DBFB0CE7195DA57A00441233 /* JCRFriendsDatasource.m */,
 				DBFB0CF0195DAA2300441233 /* JCRChooseUsernameDelegate.h */,
 				DBFB0CF1195DAA2300441233 /* JCRChooseUsernameDelegate.m */,
+				DB610EA2196172BA0024CECD /* JCRFriendsDelegate.h */,
+				DB610EA3196172BA0024CECD /* JCRFriendsDelegate.m */,
 			);
 			name = Objects;
 			sourceTree = "<group>";
@@ -172,6 +180,8 @@
 				DBFB0CEB195DA89E00441233 /* JCRLabelCollectionViewCell.m */,
 				DBFB0CED195DA8C600441233 /* JCRTextFieldCollectionViewCell.h */,
 				DBFB0CEE195DA8C600441233 /* JCRTextFieldCollectionViewCell.m */,
+				DB610E9F196166840024CECD /* JCRAddFriendCollectionViewCell.h */,
+				DB610EA0196166840024CECD /* JCRAddFriendCollectionViewCell.m */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -285,6 +295,8 @@
 				DBFB0CF2195DAA2300441233 /* JCRChooseUsernameDelegate.m in Sources */,
 				DBFB0CBD195DA13E00441233 /* AppDelegate.m in Sources */,
 				DBFB0CE8195DA57A00441233 /* JCRFriendsDatasource.m in Sources */,
+				DB610EA1196166840024CECD /* JCRAddFriendCollectionViewCell.m in Sources */,
+				DB610EA4196172BA0024CECD /* JCRFriendsDelegate.m in Sources */,
 				DBFB0CE0195DA36C00441233 /* JCRFriendsViewController.m in Sources */,
 				DBFB0CEF195DA8C600441233 /* JCRTextFieldCollectionViewCell.m in Sources */,
 				DBFB0CE5195DA56500441233 /* JCRChooseUsernameDatasource.m in Sources */,
