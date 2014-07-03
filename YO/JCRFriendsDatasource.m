@@ -40,9 +40,9 @@ typedef NS_ENUM(NSInteger, JCRCellType) {
                                                                       inZoneWithID:nil
                                                                  completionHandler:^(NSArray *results, NSError *error) {
                                                                      [self setFriends:[results mutableCopy]];
-                                                                     if ([self refreshBlock]) {
+                                                                     if ([strongSelf refreshBlock]) {
                                                                          dispatch_async(dispatch_get_main_queue(), ^{
-                                                                             self.refreshBlock();
+                                                                             strongSelf.refreshBlock();
                                                                          });
                                                                      }
                                                                  }];
