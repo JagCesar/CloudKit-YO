@@ -38,6 +38,10 @@
     
     [self setDatasource:[JCRFriendsDatasource new]];
     __weak typeof(self) weakSelf = self;
+    [self.datasource setRefreshBlock:^{
+        __strong typeof(self) strongSelf = weakSelf;
+        [strongSelf.collectionView reloadData];
+    }];
     [self.datasource setAddedFriendBlock:^{
         __strong typeof(self) strongSelf = weakSelf;
         JCRAddFriendCollectionViewCell *cell = (JCRAddFriendCollectionViewCell*)[strongSelf.collectionView

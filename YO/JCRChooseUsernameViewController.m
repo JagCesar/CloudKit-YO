@@ -39,12 +39,13 @@
     // Do any additional setup after loading the view.
     
     [self.collectionView setHidden:YES];
-    
+    __weak typeof(self) weakSelf = self;
     [[CKContainer defaultContainer] fetchUserRecordIDWithCompletionHandler:^(CKRecordID *recordID, NSError *error) {
+        __strong typeof(self) strongSelf = weakSelf;
         if (error) {
             
         } else {
-            [self setUserRecord:recordID];
+            [strongSelf setUserRecord:recordID];
             
             [[[CKContainer defaultContainer] publicCloudDatabase] performQuery:[[CKQuery alloc] initWithRecordType:@"username"
                                                                                                          predicate:[NSPredicate predicateWithFormat:@"creatorUserRecordID = %@", recordID]]
@@ -52,18 +53,18 @@
                                                              completionHandler:^(NSArray *results, NSError *error) {
                                                                  if (error || results.count > 0) {
                                                                      // Welcome back!
+                                                                     
                                                                      // Go to friends list
-                                                                     NSLog(@"Woho!");
                                                                      UIViewController *friendsViewController = [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"friends"];
                                                                      dispatch_async(dispatch_get_main_queue(), ^{
-                                                                         [self presentViewController:friendsViewController
+                                                                         [strongSelf presentViewController:friendsViewController
                                                                                             animated:YES
                                                                                           completion:nil];
                                                                      });
                                                                  } else {
                                                                      // Show collection view
                                                                      dispatch_async(dispatch_get_main_queue(), ^{
-                                                                         [self.collectionView setHidden:NO];
+                                                                         [strongSelf.collectionView setHidden:NO];
                                                                      });
                                                                  }
                                                              }];
@@ -72,7 +73,6 @@
     
     [self setDatasource:[JCRChooseUsernameDatasource new]];
     [self setDelegate:[JCRChooseUsernameDelegate new]];
-    __weak typeof(self) weakSelf = self;
     [self.delegate setChooseNickBlock:^{
         __strong typeof(self) strongSelf = weakSelf;
         [strongSelf __createUsername];
