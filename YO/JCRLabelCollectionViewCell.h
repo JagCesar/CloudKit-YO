@@ -2,7 +2,7 @@
 //  JCRLabelCollectionViewCell.h
 //  YO
 //
-//  Created by César Manuel Pinto Castillo on 27/06/14.
+//  Created by César Manuel Pinto Castillo on 03/07/14.
 //  Copyright (c) 2014 JagCesar. All rights reserved.
 //
 
@@ -10,7 +10,6 @@
 
 @interface JCRLabelCollectionViewCell : UICollectionViewCell
 
-@property (nonatomic) IBOutlet UIActivityIndicatorView *activityIndicatorView;
 @property (nonatomic) IBOutlet UILabel *label;
 
 @end

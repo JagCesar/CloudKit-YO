@@ -37,17 +37,36 @@
     // Do any additional setup after loading the view.
     
     [self setDatasource:[JCRFriendsDatasource new]];
-    [self setDelegate:[JCRFriendsDelegate new]];
-    
-    [self.collectionView setDataSource:[self datasource]];
-    [self.collectionView setDelegate:[self delegate]];
-    
     __weak typeof(self) weakSelf = self;
+    [self.datasource setAddedFriendBlock:^{
+        __strong typeof(self) strongSelf = weakSelf;
+        JCRAddFriendCollectionViewCell *cell = (JCRAddFriendCollectionViewCell*)[strongSelf.collectionView
+                                                                                 cellForItemAtIndexPath:[NSIndexPath indexPathForRow:[strongSelf.collectionView numberOfItemsInSection:0]-1
+                                                                                                                           inSection:0]];
+        [cell.activityIndicatorView stopAnimating];
+        [cell.label setHidden:NO];
+        [strongSelf.collectionView reloadData];
+    }];
+    [self.datasource setFailedAddingFriendBlock:^(NSError *error) {
+        __strong typeof(self) strongSelf = weakSelf;
+        JCRAddFriendCollectionViewCell *cell = (JCRAddFriendCollectionViewCell*)[strongSelf.collectionView
+                                                                                 cellForItemAtIndexPath:[NSIndexPath indexPathForRow:[strongSelf.collectionView numberOfItemsInSection:0]-1
+                                                                                                                           inSection:0]];
+        [cell.activityIndicatorView stopAnimating];
+        [cell.label setHidden:NO];
+        [strongSelf.collectionView reloadData];
+    }];
+    [self.collectionView setDataSource:[self datasource]];
+    
+    [self setDelegate:[JCRFriendsDelegate new]];
     [self.delegate setAddFriendBlock:^{
         __strong typeof(self) strongSelf = weakSelf;
-        JCRAddFriendCollectionViewCell *cell = (JCRAddFriendCollectionViewCell*)[strongSelf.collectionView cellForItemAtIndexPath:[NSIndexPath indexPathForRow:[strongSelf.collectionView numberOfItemsInSection:0]-1 inSection:0]];
+        JCRAddFriendCollectionViewCell *cell = (JCRAddFriendCollectionViewCell*)[strongSelf.collectionView
+                                                                                 cellForItemAtIndexPath:[NSIndexPath indexPathForRow:[strongSelf.collectionView numberOfItemsInSection:0]-1
+                                                                                                                           inSection:0]];
         [cell.textField becomeFirstResponder];
     }];
+    [self.collectionView setDelegate:[self delegate]];
 }
 
 - (void)didReceiveMemoryWarning
@@ -70,7 +89,7 @@
 #pragma mark - Private
 
 - (void)__addFriendWithUsername:(NSString*)username {
-    
+    [self.datasource addFriendWithNick:username];
 }
 
 #pragma mark - UITextFieldDelegate
@@ -85,25 +104,13 @@
 - (BOOL)textFieldShouldReturn:(UITextField *)textField {
     // Add to data source
     
-//    NSString *username = [textField text];
-//    JCRAddFriendCollectionViewCell *cell = (JCRAddFriendCollectionViewCell*)[textField superview];
-//    [cell.textField resignFirstResponder];
-//    [cell.textField setHidden:YES];
-//    [cell.activityIndicatorView startAnimating];
-//    NSIndexPath *indexPath = [self.collectionView indexPathForCell:cell];
-//    
-//    __weak typeof(self) weakSelf = self;
-//    [[[CKContainer defaultContainer] publicCloudDatabase] performQuery:[[CKQuery alloc]
-//                                                                        initWithRecordType:@"username"
-//                                                                        predicate:[NSPredicate
-//                                                                                   predicateWithFormat:@"username = %@", username]]
-//                                                          inZoneWithID:nil
-//                                                     completionHandler:^(NSArray *results, NSError *error) {
-//                                                         __strong typeof(self) strongSelf = weakSelf;
-//                                                         if ([self.collectionView.indexPathsForVisibleItems containsObject:indexPath]) {
-//                                                             
-//                                                         }
-//                                                     }];
+    NSString *username = [textField text];
+    JCRAddFriendCollectionViewCell *cell = (JCRAddFriendCollectionViewCell*)[textField.superview superview];
+    [cell.textField resignFirstResponder];
+    [cell.textField setHidden:YES];
+    [cell.activityIndicatorView startAnimating];
+    
+    [self.datasource addFriendWithNick:username];
     
     return YES;
 }

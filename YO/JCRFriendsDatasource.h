@@ -10,4 +10,9 @@
 
 @interface JCRFriendsDatasource : NSObject <UICollectionViewDataSource>
 
+@property (nonatomic,strong) void (^addedFriendBlock)();
+@property (nonatomic,strong) void (^failedAddingFriendBlock)(NSError *error);
+
+- (void)addFriendWithNick:(NSString*)username;
+
 @end

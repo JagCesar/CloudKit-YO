@@ -7,21 +7,88 @@
 //
 
 #import "JCRFriendsDatasource.h"
+@import CloudKit;
+#import "JCRLabelCollectionViewCell.h"
+
+typedef NS_ENUM(NSInteger, JCRCellType) {
+    JCRCellTypeFriend,
+    JCRCellTypeAddFriend
+};
+
+@interface JCRFriendsDatasource ()
+
+@property (nonatomic) NSMutableArray *friends;
+
+@end
 
 @implementation JCRFriendsDatasource
+
+- (instancetype)init {
+    self = [super init];
+    if (self) {
+        [self setFriends:[NSMutableArray new]];
+    }
+    return self;
+}
+
+- (void)addFriendWithNick:(NSString*)username {
+    // The cell is loading when we reach this selector
+    __weak typeof(self) weakSelf = self;
+    [[[CKContainer defaultContainer] publicCloudDatabase] performQuery:[[CKQuery alloc]
+                                                                        initWithRecordType:@"username"
+                                                                        predicate:[NSPredicate
+                                                                                   predicateWithFormat:@"username = %@", username]]
+                                                          inZoneWithID:nil
+                                                     completionHandler:^(NSArray *results, NSError *error) {
+                                                         __strong typeof(self) strongSelf = weakSelf;
+                                                         if (error || [results count] == 0) {
+                                                             // That user doesn't exist
+                                                             
+                                                             // If results count == 0 and error is nil, we have to populate the error object
+                                                             if (!error) {
+                                                                 error = [NSError errorWithDomain:@"se.jagcesar"
+                                                                                             code:1
+                                                                                         userInfo:@{NSLocalizedDescriptionKey: @"User doesn't exist"
+                                                                                                    }];
+                                                             }
+                                                             if ([self failedAddingFriendBlock]) {
+                                                                 dispatch_async(dispatch_get_main_queue(), ^{
+                                                                     self.failedAddingFriendBlock(error);
+                                                                 });
+                                                             }
+                                                         } else {
+                                                             // Add the "add friend cell"
+                                                             [strongSelf.friends addObject:[results firstObject]];
+                                                             if ([self addedFriendBlock]) {
+                                                                 dispatch_async(dispatch_get_main_queue(), ^{
+                                                                     self.addedFriendBlock();
+                                                                 });
+                                                             }
+                                                         }
+                                                     }];
+}
 
 #pragma mark - UICollectionViewDataSource
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView
      numberOfItemsInSection:(NSInteger)section {
-    return 1;
+    // We add 1 for the Add friend cell
+    return [self.friends count] + 1;
 }
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView
                   cellForItemAtIndexPath:(NSIndexPath *)indexPath {
-    UICollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"addFriendCell"
-                                                                           forIndexPath:indexPath];
-    return cell;
+    if ([self.friends count] == [indexPath row]) {
+        UICollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"addFriendCell"
+                                                                               forIndexPath:indexPath];
+        return cell;
+    } else {
+        JCRLabelCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"friendCell"
+                                                                               forIndexPath:indexPath];
+        CKRecord *friend = [self.friends objectAtIndex:[indexPath row]];
+        [cell.label setText:[friend objectForKey:@"username"]];
+        return cell;
+    }
 }
 
 @end

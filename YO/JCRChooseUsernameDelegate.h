@@ -10,6 +10,6 @@
 
 @interface JCRChooseUsernameDelegate : NSObject <UICollectionViewDelegate, UICollectionViewDelegateFlowLayout>
 
-@property (nonatomic,strong) void (^chooseNickBlock)();
+@property (nonatomic, strong) void (^chooseNickBlock)();
 
 @end

@@ -9,7 +9,7 @@
 #import "JCRChooseUsernameViewController.h"
 #import "JCRChooseUsernameDatasource.h"
 #import "JCRChooseUsernameDelegate.h"
-#import "JCRLabelCollectionViewCell.h"
+#import "JCRChooseUsernameCollectionViewCell.h"
 #import "JCRTextFieldCollectionViewCell.h"
 @import CloudKit;
 
@@ -111,7 +111,7 @@
 - (void)__createUsername {
     JCRTextFieldCollectionViewCell *textFieldCell = (JCRTextFieldCollectionViewCell*)[self.collectionView cellForItemAtIndexPath:[NSIndexPath indexPathForItem:0
                                                                                                                                                      inSection:0]];
-    JCRLabelCollectionViewCell *labelCell = (JCRLabelCollectionViewCell*)[self.collectionView cellForItemAtIndexPath:[NSIndexPath indexPathForItem:1
+    JCRChooseUsernameCollectionViewCell *labelCell = (JCRChooseUsernameCollectionViewCell*)[self.collectionView cellForItemAtIndexPath:[NSIndexPath indexPathForItem:1
                                                                                                                                     inSection:0]];
     [labelCell.activityIndicatorView startAnimating];
     [labelCell.label setHidden:YES];

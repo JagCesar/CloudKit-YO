@@ -2,13 +2,17 @@
 //  JCRLabelCollectionViewCell.m
 //  YO
 //
-//  Created by César Manuel Pinto Castillo on 03/07/14.
+//  Created by César Manuel Pinto Castillo on 27/06/14.
 //  Copyright (c) 2014 JagCesar. All rights reserved.
 //
 
-#import "JCRLabelCollectionViewCell.h"
+#import "JCRChooseUsernameCollectionViewCell.h"
 
-@implementation JCRLabelCollectionViewCell
+@interface JCRChooseUsernameCollectionViewCell ()
+
+@end
+
+@implementation JCRChooseUsernameCollectionViewCell
 
 - (instancetype)initWithFrame:(CGRect)frameRect
 {
