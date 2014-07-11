@@ -158,7 +158,11 @@
 //        for (CKSubscription *subscription in subscriptions) {
 //            [[[CKContainer defaultContainer] publicCloudDatabase] deleteSubscriptionWithID:[subscription subscriptionID]
 //                                                                         completionHandler:^(NSString *subscriptionID, NSError *error) {
-//                                                                             NSLog(@"Deleted a subscription");
+//                                                                             if (error) {
+//                                                                                 NSLog(@"Couldn't delete subsciption");
+//                                                                             } else {
+//                                                                                 NSLog(@"Deleted a subscription");
+//                                                                             }
 //                                                                         }];
 //        }
 //    }];
@@ -168,6 +172,7 @@
                                                                     predicate:predicate
                                                                       options:CKSubscriptionOptionsFiresOnRecordCreation];
     CKNotificationInfo *notificationInfo = [CKNotificationInfo new];
+    [notificationInfo setDesiredKeys:@[@"to",@"from"]];
     [notificationInfo setAlertBody:@"YOU JUST GOT YO:ED!"];
     [notificationInfo setShouldBadge:YES];
     

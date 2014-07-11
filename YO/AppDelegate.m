@@ -50,12 +50,19 @@
 
 - (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo fetchCompletionHandler:(void (^)(UIBackgroundFetchResult))completionHandler {
     CKNotification *cloudKitNotification = [CKNotification notificationFromRemoteNotificationDictionary:userInfo];
-    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"YO"
-                                                    message:[cloudKitNotification alertBody]
-                                                   delegate:nil
-                                          cancelButtonTitle:nil
-                                          otherButtonTitles:@"Ok", nil];
-    [alert show];
+    
+    if ([cloudKitNotification notificationType] == CKNotificationTypeQuery) {
+        CKQueryNotification *queryNotification = cloudKitNotification;
+        // We could use recordID to bump the sender to the top.
+        
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"YO"
+                                                        message:[NSString stringWithFormat:@"%@ YO:d you!", [queryNotification.recordFields objectForKey:@"from"]]
+                                                       delegate:nil
+                                              cancelButtonTitle:nil
+                                              otherButtonTitles:@"Ok", nil];
+        [alert show];
+    }
+    
     completionHandler(UIBackgroundFetchResultNewData);
 }
 
