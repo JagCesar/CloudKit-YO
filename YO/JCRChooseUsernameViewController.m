@@ -53,7 +53,7 @@
                                                              completionHandler:^(NSArray *results, NSError *error) {
                                                                  if (error || results.count > 0) {
                                                                      // Welcome back!
-                                                                     [self __setupPushNotificationsForUserId:[recordID recordName]];
+                                                                     [self __setupPushNotificationsForUsername:[results.firstObject objectForKey:@"username"]];
                                                                      
                                                                      // Go to friends list
                                                                      UIViewController *friendsViewController = [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"friends"];
@@ -139,7 +139,7 @@
                                                                                                                     [labelCell.activityIndicatorView stopAnimating];
                                                                                                                     [labelCell.label setHidden:NO];
                                                                                                                 } else {
-                                                                                                                    [self __setupPushNotificationsForUserId:[record.recordID recordName]];
+                                                                                                                    [self __setupPushNotificationsForUsername:[record.recordID recordName]];
                                                                                                                     // Go to friends!
                                                                                                                     UIViewController *friendsViewController = [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"friends"];
                                                                                                                     dispatch_async(dispatch_get_main_queue(), ^{
@@ -153,8 +153,8 @@
                                                      }];
 }
 
-- (void)__setupPushNotificationsForUserId:(NSString*)userId {
-    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"to = %@", userId];
+- (void)__setupPushNotificationsForUsername:(NSString*)username {
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"to = %@", username];
     CKSubscription *subscription = [[CKSubscription alloc] initWithRecordType:@"YO"
                                                                     predicate:predicate
                                                                       options:CKSubscriptionOptionsFiresOnRecordCreation];
