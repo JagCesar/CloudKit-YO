@@ -8,6 +8,7 @@
 
 #import "JCRFriendsDelegate.h"
 #import "JCRFriendsDatasource.h"
+#import "JCRChooseUsernameCollectionViewCell.h"
 @import CloudKit;
 
 @implementation JCRFriendsDelegate
@@ -39,16 +40,28 @@ didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
     } else {
         // Yo a Friend
         
-        UICollectionViewCell *cell = [collectionView cellForItemAtIndexPath:indexPath];
-        UIColor *defaultColor = [cell backgroundColor];
-        [cell setBackgroundColor:[UIColor redColor]];
+        JCRChooseUsernameCollectionViewCell *cell = [collectionView cellForItemAtIndexPath:indexPath];
         CKRecord *record = [self.datasource.friends objectAtIndex:[indexPath row]];
+        [cell.label setHidden:YES];
+        [cell.activityIndicatorView startAnimating];
         
         [self.datasource setYoBlock:^(NSError *error) {
             if (error) {
-#warning Handle this warning nicely
+                [cell.label setHidden:NO];
+                [cell.activityIndicatorView stopAnimating];
+                NSString *originalString = [cell.label text];
+                [cell.label setText:@"FAILED :("];
+                [cell.label performSelector:@selector(setText:)
+                                 withObject:originalString
+                                 afterDelay:2.f];
             } else {
-                [cell setBackgroundColor:defaultColor];
+                [cell.label setHidden:NO];
+                [cell.activityIndicatorView stopAnimating];
+                NSString *originalString = [cell.label text];
+                [cell.label setText:@"SENT!"];
+                [cell.label performSelector:@selector(setText:)
+                                 withObject:originalString
+                                 afterDelay:2.f];
             }
         }];
         

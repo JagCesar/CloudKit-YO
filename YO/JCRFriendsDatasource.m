@@ -9,6 +9,7 @@
 #import "JCRFriendsDatasource.h"
 @import CloudKit;
 #import "JCRLabelCollectionViewCell.h"
+#import "JCRChooseUsernameCollectionViewCell.h"
 
 typedef NS_ENUM(NSInteger, JCRCellType) {
     JCRCellTypeFriend,
@@ -148,8 +149,8 @@ typedef NS_ENUM(NSInteger, JCRCellType) {
                                                                                forIndexPath:indexPath];
         return cell;
     } else {
-        JCRLabelCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"friendCell"
-                                                                               forIndexPath:indexPath];
+        JCRChooseUsernameCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"friendCell"
+                                                                                              forIndexPath:indexPath];
         CKRecord *friend = [self.friends objectAtIndex:[indexPath row]];
         [cell.label setText:[friend objectForKey:@"username"]];
         return cell;

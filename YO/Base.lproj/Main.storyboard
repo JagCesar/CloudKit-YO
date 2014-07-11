@@ -134,7 +134,7 @@
                                     <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                                 </collectionViewFlowLayout>
                                 <cells>
-                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="friendCell" id="KaJ-Bu-W2u" customClass="JCRLabelCollectionViewCell">
+                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="friendCell" id="KaJ-Bu-W2u" customClass="JCRChooseUsernameCollectionViewCell">
                                         <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
@@ -164,6 +164,7 @@
                                         </constraints>
                                         <size key="customSize" width="320" height="72"/>
                                         <connections>
+                                            <outlet property="activityIndicatorView" destination="ydG-9D-3iO" id="bAD-Ug-7h8"/>
                                             <outlet property="label" destination="hK1-rd-vlg" id="th1-Qi-RSH"/>
                                         </connections>
                                     </collectionViewCell>
