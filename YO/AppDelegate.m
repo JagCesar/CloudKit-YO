@@ -56,6 +56,7 @@
                                           cancelButtonTitle:nil
                                           otherButtonTitles:@"Ok", nil];
     [alert show];
+    completionHandler(UIBackgroundFetchResultNewData);
 }
 
 - (void)application:(UIApplication *)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken {
