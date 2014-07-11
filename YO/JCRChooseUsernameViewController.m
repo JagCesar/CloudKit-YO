@@ -154,6 +154,15 @@
 }
 
 - (void)__setupPushNotificationsForUsername:(NSString*)username {
+//    [[[CKContainer defaultContainer] publicCloudDatabase] fetchAllSubscriptionsWithCompletionHandler:^(NSArray *subscriptions, NSError *error) {
+//        for (CKSubscription *subscription in subscriptions) {
+//            [[[CKContainer defaultContainer] publicCloudDatabase] deleteSubscriptionWithID:[subscription subscriptionID]
+//                                                                         completionHandler:^(NSString *subscriptionID, NSError *error) {
+//                                                                             NSLog(@"Deleted a subscription");
+//                                                                         }];
+//        }
+//    }];
+    
     NSPredicate *predicate = [NSPredicate predicateWithFormat:@"to = %@", username];
     CKSubscription *subscription = [[CKSubscription alloc] initWithRecordType:@"YO"
                                                                     predicate:predicate
