@@ -17,8 +17,6 @@ typedef NS_ENUM(NSInteger, JCRCellType) {
 
 @interface JCRFriendsDatasource ()
 
-@property (nonatomic) NSMutableArray *friends;
-
 @end
 
 @implementation JCRFriendsDatasource
@@ -117,6 +115,20 @@ typedef NS_ENUM(NSInteger, JCRCellType) {
                                                              }];
                                                          }
                                                      }];
+}
+
+- (void)sendYoToFriend:(CKRecord*)friend {
+    CKRecord *yoRecord = [[CKRecord alloc] initWithRecordType:@"YO"];
+    [yoRecord setObject:[friend objectForKey:@"username"]
+                 forKey:@"to"];
+    [[[CKContainer defaultContainer] publicCloudDatabase] saveRecord:yoRecord
+                                                   completionHandler:^(CKRecord *record, NSError *error) {
+                                                       if ([self yoBlock]) {
+                                                           dispatch_async(dispatch_get_main_queue(), ^{
+                                                               self.yoBlock(error);
+                                                           });
+                                                       }
+                                                   }];
 }
 
 #pragma mark - UICollectionViewDataSource

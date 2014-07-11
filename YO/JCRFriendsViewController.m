@@ -63,6 +63,7 @@
     [self.collectionView setDataSource:[self datasource]];
     
     [self setDelegate:[JCRFriendsDelegate new]];
+    [self.delegate setDatasource:[self datasource]];
     [self.delegate setAddFriendBlock:^{
         __strong typeof(self) strongSelf = weakSelf;
         JCRAddFriendCollectionViewCell *cell = (JCRAddFriendCollectionViewCell*)[strongSelf.collectionView

@@ -7,9 +7,11 @@
 //
 
 @import UIKit;
+@class JCRFriendsDatasource;
 
 @interface JCRFriendsDelegate : NSObject <UICollectionViewDelegate, UICollectionViewDelegateFlowLayout>
 
+@property (nonatomic) JCRFriendsDatasource *datasource;
 @property (nonatomic,strong) void (^addFriendBlock)();
 
 @end

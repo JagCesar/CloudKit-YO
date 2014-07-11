@@ -7,6 +7,8 @@
 //
 
 #import "JCRFriendsDelegate.h"
+#import "JCRFriendsDatasource.h"
+@import CloudKit;
 
 @implementation JCRFriendsDelegate
 
@@ -34,6 +36,23 @@ didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
         if (self.addFriendBlock) {
             self.addFriendBlock();
         }
+    } else {
+        // Yo a Friend
+        
+        UICollectionViewCell *cell = [collectionView cellForItemAtIndexPath:indexPath];
+        UIColor *defaultColor = [cell backgroundColor];
+        [cell setBackgroundColor:[UIColor redColor]];
+        CKRecord *record = [self.datasource.friends objectAtIndex:[indexPath row]];
+        
+        [self.datasource setYoBlock:^(NSError *error) {
+            if (error) {
+#warning Handle this warning nicely
+            } else {
+                [cell setBackgroundColor:defaultColor];
+            }
+        }];
+        
+        [self.datasource sendYoToFriend:record];
     }
 }
 
