@@ -53,6 +53,7 @@
                                                              completionHandler:^(NSArray *results, NSError *error) {
                                                                  if (error || results.count > 0) {
                                                                      // Welcome back!
+                                                                     [self __setupPushNotificationsForUserId:[recordID recordName]];
                                                                      
                                                                      // Go to friends list
                                                                      UIViewController *friendsViewController = [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"friends"];
@@ -138,8 +139,8 @@
                                                                                                                     [labelCell.activityIndicatorView stopAnimating];
                                                                                                                     [labelCell.label setHidden:NO];
                                                                                                                 } else {
+                                                                                                                    [self __setupPushNotificationsForUserId:[record.recordID recordName]];
                                                                                                                     // Go to friends!
-                                                                                                                    NSLog(@"Woho!");
                                                                                                                     UIViewController *friendsViewController = [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"friends"];
                                                                                                                     dispatch_async(dispatch_get_main_queue(), ^{
                                                                                                                         [self presentViewController:friendsViewController
@@ -150,6 +151,27 @@
                                                                                                             }];
                                                          }
                                                      }];
+}
+
+- (void)__setupPushNotificationsForUserId:(NSString*)userId {
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"to = %@", userId];
+    CKSubscription *subscription = [[CKSubscription alloc] initWithRecordType:@"YO"
+                                                                    predicate:predicate
+                                                                      options:CKSubscriptionOptionsFiresOnRecordCreation];
+    CKNotificationInfo *notificationInfo = [CKNotificationInfo new];
+    [notificationInfo setAlertBody:@"YOU JUST GOT YO:ED!"];
+    [notificationInfo setShouldBadge:YES];
+    
+    [subscription setNotificationInfo:notificationInfo];
+    
+    [[[CKContainer defaultContainer] publicCloudDatabase] saveSubscription:subscription
+                                                         completionHandler:^(CKSubscription *subscription, NSError *error) {
+                                                             if (error) {
+#warning Handle error
+                                                             } else {
+                                                                 NSLog(@"Push notification registered!");
+                                                             }
+                                                         }];
 }
 
 @end
