@@ -173,7 +173,8 @@
                                                                       options:CKSubscriptionOptionsFiresOnRecordCreation];
     CKNotificationInfo *notificationInfo = [CKNotificationInfo new];
     [notificationInfo setDesiredKeys:@[@"to",@"from"]];
-    [notificationInfo setAlertBody:@"YOU JUST GOT YO:ED!"];
+    [notificationInfo setAlertLocalizationArgs:@[@"from"]];
+    [notificationInfo setAlertBody:@"%@ JUST YO:ED YOU!"];
     [notificationInfo setShouldBadge:YES];
     
     [subscription setNotificationInfo:notificationInfo];

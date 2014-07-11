@@ -49,6 +49,8 @@
 }
 
 - (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo fetchCompletionHandler:(void (^)(UIBackgroundFetchResult))completionHandler {
+    // Maybe we should check the notification collection when this happens, in case we miss any pushes?
+    
     CKNotification *cloudKitNotification = [CKNotification notificationFromRemoteNotificationDictionary:userInfo];
     
     if ([cloudKitNotification notificationType] == CKNotificationTypeQuery) {
