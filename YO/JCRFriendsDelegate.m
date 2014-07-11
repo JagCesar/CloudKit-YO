@@ -52,7 +52,24 @@ didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
             }
         }];
         
-        [self.datasource sendYoToFriend:record];
+        __weak typeof(self) weakSelf = self;
+        [[CKContainer defaultContainer] fetchUserRecordIDWithCompletionHandler:^(CKRecordID *recordID, NSError *error) {
+            __strong typeof(self) strongSelf = weakSelf;
+            if (error) {
+                strongSelf.datasource.yoBlock(error);
+            } else {
+                [[[CKContainer defaultContainer] publicCloudDatabase] performQuery:[[CKQuery alloc] initWithRecordType:@"username"
+                                                                                                             predicate:[NSPredicate predicateWithFormat:@"creatorUserRecordID = %@", recordID]]
+                                                                      inZoneWithID:nil
+                                                                 completionHandler:^(NSArray *results, NSError *error) {
+                                                                     if (results.count == 1) {
+                                                                         [self.datasource sendYoToFriend:record from:[results firstObject]];
+                                                                     } else {
+                                                                         strongSelf.datasource.yoBlock(error);
+                                                                     }
+                                                                 }];
+            }
+        }];
     }
 }
 

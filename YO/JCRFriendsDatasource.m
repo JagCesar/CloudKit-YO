@@ -117,8 +117,10 @@ typedef NS_ENUM(NSInteger, JCRCellType) {
                                                      }];
 }
 
-- (void)sendYoToFriend:(CKRecord*)friend {
+- (void)sendYoToFriend:(CKRecord*)friend from:(CKRecord*)me {
     CKRecord *yoRecord = [[CKRecord alloc] initWithRecordType:@"YO"];
+    [yoRecord setObject:[me objectForKey:@"username"]
+                 forKey:@"from"];
     [yoRecord setObject:[friend objectForKey:@"username"]
                  forKey:@"to"];
     [[[CKContainer defaultContainer] publicCloudDatabase] saveRecord:yoRecord

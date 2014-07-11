@@ -18,6 +18,6 @@
 @property (nonatomic,strong) void (^yoBlock)(NSError* error);
 
 - (void)addFriendWithNick:(NSString*)username;
-- (void)sendYoToFriend:(CKRecord*)friend;
+- (void)sendYoToFriend:(CKRecord*)friend from:(CKRecord*)me;
 
 @end
