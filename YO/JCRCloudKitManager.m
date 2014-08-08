@@ -153,6 +153,27 @@
                                                    }];
 }
 
+
++ (void)loadFriendsToCurrentUserWithSuccessBlock:(void(^)(NSArray *friends))successBlock
+                                    failureBlock:(void(^)(NSError *error))failureBlock {
+    CKRecord *currentUserRecord = [[JCRCloudKitUser sharedInstance] currentUserRecord];
+    CKQuery *query = [[CKQuery alloc] initWithRecordType:@"friend"
+                                               predicate:[NSPredicate predicateWithFormat:@"friend = %@", [currentUserRecord recordID]]];
+    [[[CKContainer defaultContainer] publicCloudDatabase] performQuery:query
+                                                          inZoneWithID:nil
+                                                     completionHandler:^(NSArray *results, NSError *error) {
+                                                         if (error) {
+                                                             dispatch_async(dispatch_get_main_queue(), ^{
+                                                                 failureBlock(error);
+                                                             });
+                                                         } else {
+                                                             dispatch_async(dispatch_get_main_queue(), ^{
+                                                                 successBlock(results);
+                                                             });
+                                                         }
+                                                     }];
+}
+
 #pragma mark - Private functions
 
 + (CKDatabase*)__publicDatabase {

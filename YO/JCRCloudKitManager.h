@@ -31,4 +31,7 @@
           successBlock:(void(^)())successBlock
           failureBlock:(void(^)(NSError *error))failureBlock;
 
++ (void)loadFriendsToCurrentUserWithSuccessBlock:(void(^)(NSArray *friends))successBlock
+                                    failureBlock:(void(^)(NSError *error))failureBlock;
+
 @end

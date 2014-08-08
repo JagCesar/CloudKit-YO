@@ -10,7 +10,6 @@
 #import "JCRLabelCollectionViewCell.h"
 #import "JCRChooseUsernameCollectionViewCell.h"
 #import "JCRCloudKitManager.h"
-#import "JCRCloudKitUser.h"
 
 typedef NS_ENUM(NSInteger, JCRCellType) {
     JCRCellTypeFriend,
@@ -29,22 +28,16 @@ typedef NS_ENUM(NSInteger, JCRCellType) {
         [self setFriends:[NSMutableArray new]];
         
         __weak typeof(self) weakSelf = self;
-        CKRecord *record = [[JCRCloudKitUser sharedInstance] currentUserRecord];
-        
-        // Load friends
-        CKQuery *query = [[CKQuery alloc] initWithRecordType:@"friend"
-                                                   predicate:[NSPredicate predicateWithFormat:@"friend = %@", [record recordID]]];
-        [[[CKContainer defaultContainer] publicCloudDatabase] performQuery:query
-                                                              inZoneWithID:nil
-                                                         completionHandler:^(NSArray *results, NSError *error) {
-                                                             __strong typeof(self) strongSelf = weakSelf;
-                                                             [self setFriends:[results mutableCopy]];
-                                                             if ([strongSelf refreshBlock]) {
-                                                                 dispatch_async(dispatch_get_main_queue(), ^{
-                                                                     strongSelf.refreshBlock();
-                                                                 });
-                                                             }
-                                                         }];
+        [JCRCloudKitManager loadFriendsToCurrentUserWithSuccessBlock:^(NSArray *friends) {
+            __strong typeof(self) strongSelf = weakSelf;
+            [self setFriends:[friends mutableCopy]];
+            if ([strongSelf refreshBlock]) {
+                strongSelf.refreshBlock();
+            }
+        }
+                                                        failureBlock:^(NSError *error) {
+#warning Handle error
+                                                        }];
     }
     return self;
 }
