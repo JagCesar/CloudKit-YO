@@ -52,6 +52,18 @@ typedef NS_ENUM(NSInteger, JCRCellType) {
 
 - (void)addFriendWithNick:(NSString*)username {
     // The cell is loading when we reach this selector
+    for (CKRecord *friendRecord in [self friends]) {
+        if ([[friendRecord objectForKey:@"username"] isEqualToString:username]) {
+            if (self.failedAddingFriendBlock) {
+                NSError *error = [NSError errorWithDomain:@"se.jagcesar"
+                                                     code:1
+                                                 userInfo:@{NSLocalizedDescriptionKey: @"Already added"
+                                                            }];
+                self.failedAddingFriendBlock(error);
+            }
+            return;
+        }
+    }
     __weak typeof(self) weakSelf = self;
     [JCRCloudKitManager addFriendWithUsername:username
                                  successBlock:^(CKRecord *newFriend){
