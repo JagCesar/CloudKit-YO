@@ -7,13 +7,17 @@
 //
 
 #import <UIKit/UIKit.h>
+@class CKRecord;
 
 @interface JCRFriendsDatasource : NSObject <UICollectionViewDataSource>
 
+@property (nonatomic) NSMutableArray *friends;
 @property (nonatomic,strong) void (^refreshBlock)();
 @property (nonatomic,strong) void (^addedFriendBlock)();
 @property (nonatomic,strong) void (^failedAddingFriendBlock)(NSError *error);
+@property (nonatomic,strong) void (^yoBlock)(NSError* error);
 
 - (void)addFriendWithNick:(NSString*)username;
+- (void)sendYoToFriend:(CKRecord*)friend from:(CKRecord*)me;
 
 @end

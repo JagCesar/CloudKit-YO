@@ -7,11 +7,11 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "JCRLabelCollectionViewCell.h"
 
-@interface JCRAddFriendCollectionViewCell : UICollectionViewCell
+@interface JCRAddFriendCollectionViewCell : JCRLabelCollectionViewCell
 
 @property (nonatomic) IBOutlet UITextField *textField;
 @property (nonatomic) IBOutlet UIActivityIndicatorView *activityIndicatorView;
-@property (nonatomic) IBOutlet UILabel *label;
 
 @end

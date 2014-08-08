@@ -52,13 +52,14 @@
                                                                                                          predicate:[NSPredicate predicateWithFormat:@"creatorUserRecordID = %@", recordID]]
                                                                   inZoneWithID:nil
                                                              completionHandler:^(NSArray *results, NSError *error) {
-                                                                 if (error || results.count > 0) {
+                                                                 if (error || results.count == 0) {
                                                                      // Show collection view
                                                                      dispatch_async(dispatch_get_main_queue(), ^{
                                                                          [strongSelf.collectionView setHidden:NO];
                                                                      });
                                                                  } else {
                                                                      // Welcome back!
+//                                                                     [self __setupPushNotificationsForUsername:[results.firstObject objectForKey:@"username"]];
                                                                      
                                                                      // Go to friends list
                                                                      UIViewController *friendsViewController = [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"friends"];
@@ -122,9 +123,7 @@
     [JCRCloudKitManager registerUsername:username
                             successBlock:^{
                                 // Go to friends!
-                                UIViewController *friendsViewController = [[UIStoryboard storyboardWithName:@"Main"
-                                                                                                     bundle:nil]
-                                                                           instantiateViewControllerWithIdentifier:@"friends"];
+                                UIViewController *friendsViewController = [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"friends"];
                                 [self presentViewController:friendsViewController
                                                    animated:YES
                                                  completion:nil];

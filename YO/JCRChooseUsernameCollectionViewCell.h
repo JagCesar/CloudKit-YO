@@ -7,10 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "JCRLabelCollectionViewCell.h"
 
-@interface JCRChooseUsernameCollectionViewCell : UICollectionViewCell
+@interface JCRChooseUsernameCollectionViewCell : JCRLabelCollectionViewCell
 
 @property (nonatomic) IBOutlet UIActivityIndicatorView *activityIndicatorView;
-@property (nonatomic) IBOutlet UILabel *label;
 
 @end

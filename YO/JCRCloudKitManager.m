@@ -33,6 +33,7 @@
                                                       if (error) {
                                                           failureBlock(error);
                                                       } else {
+                                                          [self __setupPushNotificationsForUsername:username];
                                                           dispatch_async(dispatch_get_main_queue(), ^{
                                                               successBlock();
                                                           });
@@ -46,6 +47,42 @@
 
 + (CKDatabase*)__publicDatabase {
     return [[CKContainer defaultContainer] publicCloudDatabase];
+}
+
++ (void)__setupPushNotificationsForUsername:(NSString*)username {
+    //    [[[CKContainer defaultContainer] publicCloudDatabase] fetchAllSubscriptionsWithCompletionHandler:^(NSArray *subscriptions, NSError *error) {
+    //        for (CKSubscription *subscription in subscriptions) {
+    //            [[[CKContainer defaultContainer] publicCloudDatabase] deleteSubscriptionWithID:[subscription subscriptionID]
+    //                                                                         completionHandler:^(NSString *subscriptionID, NSError *error) {
+    //                                                                             if (error) {
+    //                                                                                 NSLog(@"Couldn't delete subsciption");
+    //                                                                             } else {
+    //                                                                                 NSLog(@"Deleted a subscription");
+    //                                                                             }
+    //                                                                         }];
+    //        }
+    //    }];
+    
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"to = %@", username];
+    CKSubscription *subscription = [[CKSubscription alloc] initWithRecordType:@"YO"
+                                                                    predicate:predicate
+                                                                      options:CKSubscriptionOptionsFiresOnRecordCreation];
+    CKNotificationInfo *notificationInfo = [CKNotificationInfo new];
+    [notificationInfo setDesiredKeys:@[@"to",@"from"]];
+    [notificationInfo setAlertLocalizationArgs:@[@"from"]];
+    [notificationInfo setAlertBody:@"%@ JUST YO:ED YOU!"];
+    [notificationInfo setShouldBadge:YES];
+    
+    [subscription setNotificationInfo:notificationInfo];
+    
+    [[[CKContainer defaultContainer] publicCloudDatabase] saveSubscription:subscription
+                                                         completionHandler:^(CKSubscription *subscription, NSError *error) {
+                                                             if (error) {
+#warning Handle error
+                                                             } else {
+#warning success
+                                                             }
+                                                         }];
 }
 
 @end

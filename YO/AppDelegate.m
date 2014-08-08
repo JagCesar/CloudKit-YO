@@ -7,6 +7,7 @@
 //
 
 #import "AppDelegate.h"
+@import CloudKit;
 
 @interface AppDelegate ()
             
@@ -18,6 +19,10 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
+    if (![application isRegisteredForRemoteNotifications]) {
+        [application registerUserNotificationSettings:[UIUserNotificationSettings settingsForTypes:UIUserNotificationTypeAlert|UIUserNotificationTypeBadge|UIUserNotificationTypeSound categories:nil]];
+        [application registerForRemoteNotifications];
+    }
     return YES;
 }
 
@@ -41,6 +46,34 @@
 
 - (void)applicationWillTerminate:(UIApplication *)application {
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
+}
+
+- (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo fetchCompletionHandler:(void (^)(UIBackgroundFetchResult))completionHandler {
+    // Maybe we should check the notification collection when this happens, in case we miss any pushes?
+    
+    CKNotification *cloudKitNotification = [CKNotification notificationFromRemoteNotificationDictionary:userInfo];
+    
+    if ([cloudKitNotification notificationType] == CKNotificationTypeQuery) {
+        CKQueryNotification *queryNotification = cloudKitNotification;
+        // We could use recordID to bump the sender to the top.
+        
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"YO"
+                                                        message:[NSString stringWithFormat:@"%@ YO:d you!", [queryNotification.recordFields objectForKey:@"from"]]
+                                                       delegate:nil
+                                              cancelButtonTitle:nil
+                                              otherButtonTitles:@"Ok", nil];
+        [alert show];
+    }
+    
+    completionHandler(UIBackgroundFetchResultNewData);
+}
+
+- (void)application:(UIApplication *)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken {
+    
+}
+
+- (void)application:(UIApplication *)application didFailToRegisterForRemoteNotificationsWithError:(NSError *)error {
+    
 }
 
 @end

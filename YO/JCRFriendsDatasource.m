@@ -9,6 +9,7 @@
 #import "JCRFriendsDatasource.h"
 @import CloudKit;
 #import "JCRLabelCollectionViewCell.h"
+#import "JCRChooseUsernameCollectionViewCell.h"
 
 typedef NS_ENUM(NSInteger, JCRCellType) {
     JCRCellTypeFriend,
@@ -16,8 +17,6 @@ typedef NS_ENUM(NSInteger, JCRCellType) {
 };
 
 @interface JCRFriendsDatasource ()
-
-@property (nonatomic) NSMutableArray *friends;
 
 @end
 
@@ -119,6 +118,22 @@ typedef NS_ENUM(NSInteger, JCRCellType) {
                                                      }];
 }
 
+- (void)sendYoToFriend:(CKRecord*)friend from:(CKRecord*)me {
+    CKRecord *yoRecord = [[CKRecord alloc] initWithRecordType:@"YO"];
+    [yoRecord setObject:[me objectForKey:@"username"]
+                 forKey:@"from"];
+    [yoRecord setObject:[friend objectForKey:@"username"]
+                 forKey:@"to"];
+    [[[CKContainer defaultContainer] publicCloudDatabase] saveRecord:yoRecord
+                                                   completionHandler:^(CKRecord *record, NSError *error) {
+                                                       if ([self yoBlock]) {
+                                                           dispatch_async(dispatch_get_main_queue(), ^{
+                                                               self.yoBlock(error);
+                                                           });
+                                                       }
+                                                   }];
+}
+
 #pragma mark - UICollectionViewDataSource
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView
@@ -134,8 +149,8 @@ typedef NS_ENUM(NSInteger, JCRCellType) {
                                                                                forIndexPath:indexPath];
         return cell;
     } else {
-        JCRLabelCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"friendCell"
-                                                                               forIndexPath:indexPath];
+        JCRChooseUsernameCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"friendCell"
+                                                                                              forIndexPath:indexPath];
         CKRecord *friend = [self.friends objectAtIndex:[indexPath row]];
         [cell.label setText:[friend objectForKey:@"username"]];
         return cell;
