@@ -57,30 +57,20 @@ typedef NS_ENUM(NSInteger, JCRCellType) {
                                        successBlock:^(BOOL usernameExists) {
                                            __strong typeof(self) strongSelf = weakSelf;
                                            if (usernameExists) {
-                                               CKRecord *newFriend = [[CKRecord alloc] initWithRecordType:@"friend"];
-                                               [newFriend setObject:username
-                                                             forKey:@"username"];
-                                               CKRecordID *recordId = [[JCRCloudKitUser sharedInstance] currentUserRecordId];
-                                               CKReference *newFriendReference = [[CKReference alloc] initWithRecordID:recordId
-                                                                                                                action:CKReferenceActionDeleteSelf];
-                                               newFriend[@"friend"] = newFriendReference;
-                                               
-                                               [[[CKContainer defaultContainer] publicCloudDatabase] saveRecord:newFriend
-                                                                                              completionHandler:^(CKRecord *record, NSError *error) {
-                                                                                                  if (error) {
-                                                                                                      dispatch_async(dispatch_get_main_queue(), ^{
-                                                                                                          strongSelf.failedAddingFriendBlock(error);
-                                                                                                      });
-                                                                                                  } else {
-                                                                                                      // Add the "add friend cell"
-                                                                                                      [strongSelf.friends addObject:newFriend];
-                                                                                                      if ([strongSelf addedFriendBlock]) {
-                                                                                                          dispatch_async(dispatch_get_main_queue(), ^{
-                                                                                                              strongSelf.addedFriendBlock();
-                                                                                                          });
-                                                                                                      }
-                                                                                                  }
-                                                                                              }];
+                                               [JCRCloudKitManager addFriendWithUsername:username
+                                                                            successBlock:^(CKRecord *newFriend){
+                                                                                [strongSelf.friends addObject:newFriend];
+                                                                                if ([strongSelf addedFriendBlock]) {
+                                                                                    dispatch_async(dispatch_get_main_queue(), ^{
+                                                                                        strongSelf.addedFriendBlock();
+                                                                                    });
+                                                                                }
+                                                                            }
+                                                                            failureBlock:^(NSError *error) {
+                                                                                if (strongSelf.failedAddingFriendBlock) {
+                                                                                    strongSelf.failedAddingFriendBlock(error);
+                                                                                }
+                                                                            }];
                                            } else {
                                                NSError *error = [NSError errorWithDomain:@"se.jagcesar"
                                                                                     code:1
