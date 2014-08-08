@@ -13,7 +13,6 @@
 #import "JCRTextFieldCollectionViewCell.h"
 #import "JCRCloudKitManager.h"
 #import "JCRCloudKitUser.h"
-@import CloudKit;
 
 @interface JCRChooseUsernameViewController () <UITextFieldDelegate>
 
@@ -57,7 +56,7 @@
                                                            });
                                                        }];
     } failureBlock:^(NSError *error) {
-#warning What should we do if the user record id can't be fetched? 
+#warning What should we do if the user record id can't be fetched?
     }];
     
     [self setDatasource:[JCRChooseUsernameDatasource new]];
