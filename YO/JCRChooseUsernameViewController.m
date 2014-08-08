@@ -48,28 +48,18 @@
         } else {
             [strongSelf setUserRecord:recordID];
             
-            [[[CKContainer defaultContainer] publicCloudDatabase] performQuery:[[CKQuery alloc] initWithRecordType:@"usernames"
-                                                                                                         predicate:[NSPredicate predicateWithFormat:@"creatorUserRecordID = %@", recordID]]
-                                                                  inZoneWithID:nil
-                                                             completionHandler:^(NSArray *results, NSError *error) {
-                                                                 if (error || results.count == 0) {
-                                                                     // Show collection view
-                                                                     dispatch_async(dispatch_get_main_queue(), ^{
-                                                                         [strongSelf.collectionView setHidden:NO];
-                                                                     });
-                                                                 } else {
-                                                                     // Welcome back!
-//                                                                     [self __setupPushNotificationsForUsername:[results.firstObject objectForKey:@"username"]];
-                                                                     
-                                                                     // Go to friends list
-                                                                     UIViewController *friendsViewController = [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"friends"];
-                                                                     dispatch_async(dispatch_get_main_queue(), ^{
-                                                                         [strongSelf presentViewController:friendsViewController
-                                                                                            animated:YES
-                                                                                          completion:nil];
-                                                                     });
-                                                                 }
-                                                             }];
+            [JCRCloudKitManager checkIfUsernameIsRegisteredWithRecordId:recordID
+                                                           successBlock:^{
+                                                               UIViewController *friendsViewController = [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"friends"];
+                                                               [strongSelf presentViewController:friendsViewController
+                                                                                        animated:YES
+                                                                                      completion:nil];
+                                                           }
+                                                           failureBlock:^(NSError *error) {
+                                                               dispatch_async(dispatch_get_main_queue(), ^{
+                                                                   [strongSelf.collectionView setHidden:NO];
+                                                               });
+                                                           }];
         }
     }];
     
