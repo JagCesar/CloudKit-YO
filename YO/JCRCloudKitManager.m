@@ -14,7 +14,7 @@
 + (void)registerUsername:(NSString*)username
             successBlock:(void(^)())successBlock
             failureBlock:(void(^)(NSError* error))failureBlock {
-    [[self __publicDatabase] performQuery:[[CKQuery alloc] initWithRecordType:@"username"
+    [[self __publicDatabase] performQuery:[[CKQuery alloc] initWithRecordType:@"usernames"
                                                                     predicate:[NSPredicate predicateWithFormat:@"username = %@", username]]
                              inZoneWithID:nil
                         completionHandler:^(NSArray *results, NSError *error) {
@@ -25,7 +25,7 @@
                                 });
                             } else {
                                 // Create username
-                                CKRecord *record = [[CKRecord alloc] initWithRecordType:@"username"];
+                                CKRecord *record = [[CKRecord alloc] initWithRecordType:@"usernames"];
                                 [record setObject:username
                                            forKey:@"username"];
                                 [[self __publicDatabase] saveRecord:record

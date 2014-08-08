@@ -11,6 +11,7 @@
 #import "JCRChooseUsernameDelegate.h"
 #import "JCRChooseUsernameCollectionViewCell.h"
 #import "JCRTextFieldCollectionViewCell.h"
+#import "JCRCloudKitManager.h"
 @import CloudKit;
 
 @interface JCRChooseUsernameViewController () <UITextFieldDelegate>
@@ -47,11 +48,16 @@
         } else {
             [strongSelf setUserRecord:recordID];
             
-            [[[CKContainer defaultContainer] publicCloudDatabase] performQuery:[[CKQuery alloc] initWithRecordType:@"username"
+            [[[CKContainer defaultContainer] publicCloudDatabase] performQuery:[[CKQuery alloc] initWithRecordType:@"usernames"
                                                                                                          predicate:[NSPredicate predicateWithFormat:@"creatorUserRecordID = %@", recordID]]
                                                                   inZoneWithID:nil
                                                              completionHandler:^(NSArray *results, NSError *error) {
                                                                  if (error || results.count > 0) {
+                                                                     // Show collection view
+                                                                     dispatch_async(dispatch_get_main_queue(), ^{
+                                                                         [strongSelf.collectionView setHidden:NO];
+                                                                     });
+                                                                 } else {
                                                                      // Welcome back!
                                                                      
                                                                      // Go to friends list
@@ -60,11 +66,6 @@
                                                                          [strongSelf presentViewController:friendsViewController
                                                                                             animated:YES
                                                                                           completion:nil];
-                                                                     });
-                                                                 } else {
-                                                                     // Show collection view
-                                                                     dispatch_async(dispatch_get_main_queue(), ^{
-                                                                         [strongSelf.collectionView setHidden:NO];
                                                                      });
                                                                  }
                                                              }];
@@ -118,38 +119,20 @@
     
     NSString *username = textFieldCell.textField.text;
     
-    [[[CKContainer defaultContainer] publicCloudDatabase] performQuery:[[CKQuery alloc] initWithRecordType:@"username"
-                                                                                                 predicate:[NSPredicate predicateWithFormat:@"username = %@", username]]
-                                                          inZoneWithID:nil
-                                                     completionHandler:^(NSArray *results, NSError *error) {
-                                                         if (error || results.count > 0) {
-                                                             dispatch_async(dispatch_get_main_queue(), ^{
-                                                                 [labelCell.label setText:@"USERNAME TAKEN"];
-                                                                 [labelCell.activityIndicatorView stopAnimating];
-                                                                 [labelCell.label setHidden:NO];
-                                                             });
-                                                         } else {
-                                                             // Create username
-                                                             CKRecord *record = [[CKRecord alloc] initWithRecordType:@"username"];
-                                                             [record setObject:textFieldCell.textField.text forKey:@"username"];
-                                                             [[[CKContainer defaultContainer] publicCloudDatabase] saveRecord:record
-                                                                                                            completionHandler:^(CKRecord *record, NSError *error) {
-                                                                                                                if (error) {
-                                                                                                                    [labelCell.activityIndicatorView stopAnimating];
-                                                                                                                    [labelCell.label setHidden:NO];
-                                                                                                                } else {
-                                                                                                                    // Go to friends!
-                                                                                                                    NSLog(@"Woho!");
-                                                                                                                    UIViewController *friendsViewController = [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"friends"];
-                                                                                                                    dispatch_async(dispatch_get_main_queue(), ^{
-                                                                                                                        [self presentViewController:friendsViewController
-                                                                                                                                           animated:YES
-                                                                                                                                         completion:nil];
-                                                                                                                    });
-                                                                                                                }
-                                                                                                            }];
-                                                         }
-                                                     }];
+    [JCRCloudKitManager registerUsername:username
+                            successBlock:^{
+                                // Go to friends!
+                                UIViewController *friendsViewController = [[UIStoryboard storyboardWithName:@"Main"
+                                                                                                     bundle:nil]
+                                                                           instantiateViewControllerWithIdentifier:@"friends"];
+                                [self presentViewController:friendsViewController
+                                                   animated:YES
+                                                 completion:nil];
+                            } failureBlock:^(NSError *error) {
+                                [labelCell.label setText:@"USERNAME TAKEN"];
+                                [labelCell.activityIndicatorView stopAnimating];
+                                [labelCell.label setHidden:NO];
+                            }];
 }
 
 @end
