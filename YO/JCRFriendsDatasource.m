@@ -53,40 +53,22 @@ typedef NS_ENUM(NSInteger, JCRCellType) {
 - (void)addFriendWithNick:(NSString*)username {
     // The cell is loading when we reach this selector
     __weak typeof(self) weakSelf = self;
-    [JCRCloudKitManager checkIfUsernameIsRegistered:username
-                                       successBlock:^(BOOL usernameExists) {
-                                           __strong typeof(self) strongSelf = weakSelf;
-                                           if (usernameExists) {
-                                               [JCRCloudKitManager addFriendWithUsername:username
-                                                                            successBlock:^(CKRecord *newFriend){
-                                                                                [strongSelf.friends addObject:newFriend];
-                                                                                if ([strongSelf addedFriendBlock]) {
-                                                                                    dispatch_async(dispatch_get_main_queue(), ^{
-                                                                                        strongSelf.addedFriendBlock();
-                                                                                    });
-                                                                                }
-                                                                            }
-                                                                            failureBlock:^(NSError *error) {
-                                                                                if (strongSelf.failedAddingFriendBlock) {
-                                                                                    strongSelf.failedAddingFriendBlock(error);
-                                                                                }
-                                                                            }];
-                                           } else {
-                                               NSError *error = [NSError errorWithDomain:@"se.jagcesar"
-                                                                                    code:1
-                                                                                userInfo:@{NSLocalizedDescriptionKey: @"User doesn't exist"
-                                                                                           }];
-                                               if ([strongSelf failedAddingFriendBlock]) {
-                                                   strongSelf.failedAddingFriendBlock(error);
-                                               }
-                                           }
-                                       }
-                                       failureBlock:^(NSError *error) {
-                                           __strong typeof(self) strongSelf = weakSelf;
-                                           if ([strongSelf failedAddingFriendBlock]) {
-                                               strongSelf.failedAddingFriendBlock(error);
-                                           }
-                                       }];
+    [JCRCloudKitManager addFriendWithUsername:username
+                                 successBlock:^(CKRecord *newFriend){
+                                     __strong typeof(self) strongSelf = weakSelf;
+                                     [strongSelf.friends addObject:newFriend];
+                                     if ([strongSelf addedFriendBlock]) {
+                                         dispatch_async(dispatch_get_main_queue(), ^{
+                                             strongSelf.addedFriendBlock();
+                                         });
+                                     }
+                                 }
+                                 failureBlock:^(NSError *error) {
+                                     __strong typeof(self) strongSelf = weakSelf;
+                                     if (strongSelf.failedAddingFriendBlock) {
+                                         strongSelf.failedAddingFriendBlock(error);
+                                     }
+                                 }];
 }
 
 - (void)sendYoToFriend:(CKRecord*)friend from:(CKRecord*)me {
