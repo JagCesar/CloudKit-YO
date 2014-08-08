@@ -19,4 +19,8 @@
                                    successBlock:(void(^)())successBlock
                                    failureBlock:(void(^)(NSError* error))failureBlock;
 
++ (void)checkIfUsernameIsRegistered:(NSString*)username
+                       successBlock:(void(^)(BOOL usernameExists))successBlock
+                       failureBlock:(void(^)(NSError *error))failureBlock;
+
 @end

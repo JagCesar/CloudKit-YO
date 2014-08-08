@@ -65,6 +65,29 @@
                         }];
 }
 
++ (void)checkIfUsernameIsRegistered:(NSString*)username
+                       successBlock:(void(^)(BOOL usernameExists))successBlock
+                       failureBlock:(void(^)(NSError *error))failureBlock {
+    CKQuery *query = [[CKQuery alloc]
+                      initWithRecordType:@"username"
+                      predicate:[NSPredicate
+                                 predicateWithFormat:@"username = %@", username]];
+    [[self __publicDatabase] performQuery:query
+                             inZoneWithID:nil
+                        completionHandler:^(NSArray *results, NSError *error) {
+                            if (error) {
+                                dispatch_async(dispatch_get_main_queue(), ^{
+                                    failureBlock(error);
+                                });
+                            } else {
+                                dispatch_async(dispatch_get_main_queue(), ^{
+                                    BOOL usernameExists = (results.count > 0) ? YES : NO;
+                                    successBlock(usernameExists);
+                                });
+                            }
+                        }];
+}
+
 #pragma mark - Private functions
 
 + (CKDatabase*)__publicDatabase {
