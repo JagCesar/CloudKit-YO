@@ -7,7 +7,6 @@
 //
 
 #import <UIKit/UIKit.h>
-@class CKRecord;
 
 @interface JCRFriendsDatasource : NSObject <UICollectionViewDataSource>
 

@@ -7,7 +7,6 @@
 //
 
 #import "JCRFriendsDatasource.h"
-@import CloudKit;
 #import "JCRLabelCollectionViewCell.h"
 #import "JCRChooseUsernameCollectionViewCell.h"
 #import "JCRCloudKitManager.h"
