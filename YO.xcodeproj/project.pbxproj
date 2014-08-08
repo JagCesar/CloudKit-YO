@@ -12,6 +12,7 @@
 		DBAB43621965B11D0028658F /* JCRLabelCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = DBAB43611965B11D0028658F /* JCRLabelCollectionViewCell.m */; };
 		DBD8F8D81994784A0095A865 /* JCRCloudKitManager.m in Sources */ = {isa = PBXBuildFile; fileRef = DBD8F8D71994784A0095A865 /* JCRCloudKitManager.m */; };
 		DBD8F8DC19948A060095A865 /* CloudKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DBD8F8DB19948A060095A865 /* CloudKit.framework */; };
+		DBD8F8DF199490D30095A865 /* JCRCloudKitUser.m in Sources */ = {isa = PBXBuildFile; fileRef = DBD8F8DE199490D30095A865 /* JCRCloudKitUser.m */; };
 		DBFB0CBA195DA13E00441233 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = DBFB0CB9195DA13E00441233 /* main.m */; };
 		DBFB0CBD195DA13E00441233 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = DBFB0CBC195DA13E00441233 /* AppDelegate.m */; };
 		DBFB0CC3195DA13E00441233 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DBFB0CC1195DA13E00441233 /* Main.storyboard */; };
@@ -46,6 +47,8 @@
 		DBD8F8D61994784A0095A865 /* JCRCloudKitManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JCRCloudKitManager.h; sourceTree = "<group>"; };
 		DBD8F8D71994784A0095A865 /* JCRCloudKitManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JCRCloudKitManager.m; sourceTree = "<group>"; };
 		DBD8F8DB19948A060095A865 /* CloudKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CloudKit.framework; path = System/Library/Frameworks/CloudKit.framework; sourceTree = SDKROOT; };
+		DBD8F8DD199490D30095A865 /* JCRCloudKitUser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JCRCloudKitUser.h; sourceTree = "<group>"; };
+		DBD8F8DE199490D30095A865 /* JCRCloudKitUser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JCRCloudKitUser.m; sourceTree = "<group>"; };
 		DBFB0CB4195DA13E00441233 /* YO.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = YO.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		DBFB0CB8195DA13E00441233 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		DBFB0CB9195DA13E00441233 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -97,6 +100,8 @@
 			children = (
 				DBD8F8D61994784A0095A865 /* JCRCloudKitManager.h */,
 				DBD8F8D71994784A0095A865 /* JCRCloudKitManager.m */,
+				DBD8F8DD199490D30095A865 /* JCRCloudKitUser.h */,
+				DBD8F8DE199490D30095A865 /* JCRCloudKitUser.m */,
 			);
 			name = CloudKit;
 			sourceTree = "<group>";
@@ -321,6 +326,7 @@
 				DBFB0CE0195DA36C00441233 /* JCRFriendsViewController.m in Sources */,
 				DBFB0CEF195DA8C600441233 /* JCRTextFieldCollectionViewCell.m in Sources */,
 				DBFB0CE5195DA56500441233 /* JCRChooseUsernameDatasource.m in Sources */,
+				DBD8F8DF199490D30095A865 /* JCRCloudKitUser.m in Sources */,
 				DBAB43621965B11D0028658F /* JCRLabelCollectionViewCell.m in Sources */,
 				DBFB0CBA195DA13E00441233 /* main.m in Sources */,
 				DBFB0CEC195DA89E00441233 /* JCRChooseUsernameCollectionViewCell.m in Sources */,
