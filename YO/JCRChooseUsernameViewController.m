@@ -12,6 +12,7 @@
 #import "JCRChooseUsernameCollectionViewCell.h"
 #import "JCRTextFieldCollectionViewCell.h"
 #import "JCRCloudKitManager.h"
+#import "JCRCloudKitUser.h"
 @import CloudKit;
 
 @interface JCRChooseUsernameViewController () <UITextFieldDelegate>
@@ -19,7 +20,6 @@
 @property (nonatomic) JCRChooseUsernameDatasource *datasource;
 @property (nonatomic) JCRChooseUsernameDelegate *delegate;
 @property (nonatomic) IBOutlet UICollectionView *collectionView;
-@property (nonatomic) CKRecordID *userRecord;
 
 @end
 
@@ -41,26 +41,23 @@
     
     [self.collectionView setHidden:YES];
     __weak typeof(self) weakSelf = self;
-    [[CKContainer defaultContainer] fetchUserRecordIDWithCompletionHandler:^(CKRecordID *recordID, NSError *error) {
+    
+    [[JCRCloudKitUser sharedInstance] fetchUserWithSuccessBlock:^(CKRecordID *recordId) {
         __strong typeof(self) strongSelf = weakSelf;
-        if (error) {
-            
-        } else {
-            [strongSelf setUserRecord:recordID];
-            
-            [JCRCloudKitManager checkIfUsernameIsRegisteredWithRecordId:recordID
-                                                           successBlock:^{
-                                                               UIViewController *friendsViewController = [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"friends"];
-                                                               [strongSelf presentViewController:friendsViewController
-                                                                                        animated:YES
-                                                                                      completion:nil];
-                                                           }
-                                                           failureBlock:^(NSError *error) {
-                                                               dispatch_async(dispatch_get_main_queue(), ^{
-                                                                   [strongSelf.collectionView setHidden:NO];
-                                                               });
-                                                           }];
-        }
+        [JCRCloudKitManager checkIfUsernameIsRegisteredWithRecordId:recordId
+                                                       successBlock:^{
+                                                           UIViewController *friendsViewController = [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"friends"];
+                                                           [strongSelf presentViewController:friendsViewController
+                                                                                    animated:YES
+                                                                                  completion:nil];
+                                                       }
+                                                       failureBlock:^(NSError *error) {
+                                                           dispatch_async(dispatch_get_main_queue(), ^{
+                                                               [strongSelf.collectionView setHidden:NO];
+                                                           });
+                                                       }];
+    } failureBlock:^(NSError *error) {
+#warning What should we do if the user record id can't be fetched? 
     }];
     
     [self setDatasource:[JCRChooseUsernameDatasource new]];
