@@ -69,7 +69,7 @@
                        successBlock:(void(^)(BOOL usernameExists))successBlock
                        failureBlock:(void(^)(NSError *error))failureBlock {
     CKQuery *query = [[CKQuery alloc]
-                      initWithRecordType:@"username"
+                      initWithRecordType:@"usernames"
                       predicate:[NSPredicate
                                  predicateWithFormat:@"username = %@", username]];
     [[self __publicDatabase] performQuery:query

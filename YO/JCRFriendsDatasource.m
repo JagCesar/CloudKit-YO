@@ -10,6 +10,7 @@
 @import CloudKit;
 #import "JCRLabelCollectionViewCell.h"
 #import "JCRChooseUsernameCollectionViewCell.h"
+#import "JCRCloudKitManager.h"
 #import "JCRCloudKitUser.h"
 
 typedef NS_ENUM(NSInteger, JCRCellType) {
@@ -52,67 +53,50 @@ typedef NS_ENUM(NSInteger, JCRCellType) {
 - (void)addFriendWithNick:(NSString*)username {
     // The cell is loading when we reach this selector
     __weak typeof(self) weakSelf = self;
-    [[[CKContainer defaultContainer] publicCloudDatabase] performQuery:[[CKQuery alloc]
-                                                                        initWithRecordType:@"username"
-                                                                        predicate:[NSPredicate
-                                                                                   predicateWithFormat:@"username = %@", username]]
-                                                          inZoneWithID:nil
-                                                     completionHandler:^(NSArray *results, NSError *error) {
-                                                         __strong typeof(self) strongSelf = weakSelf;
-                                                         if (error || [results count] == 0) {
-                                                             // That user doesn't exist
-                                                             
-                                                             // If results count == 0 and error is nil, we have to populate the error object
-                                                             if (!error) {
-                                                                 error = [NSError errorWithDomain:@"se.jagcesar"
-                                                                                             code:1
-                                                                                         userInfo:@{NSLocalizedDescriptionKey: @"User doesn't exist"
-                                                                                                    }];
-                                                             }
-                                                             
-                                                             if ([self failedAddingFriendBlock]) {
-                                                                 dispatch_async(dispatch_get_main_queue(), ^{
-                                                                     self.failedAddingFriendBlock(error);
-                                                                 });
-                                                             }
-                                                         } else {
-                                                             // We store added friends in the backend
-                                                             CKRecord *friendUserRecord = [results firstObject];
-                                                             CKRecord *newFriend = [[CKRecord alloc] initWithRecordType:@"friend"];
-                                                             [newFriend setObject:[friendUserRecord objectForKey:@"username"]
-                                                                           forKey:@"username"];
-                                                             
-                                                             CKRecordID *recordId = [[JCRCloudKitUser sharedInstance] currentUserRecordId];
-                                                             if (error) {
-                                                                 if ([strongSelf failedAddingFriendBlock]) {
-                                                                     dispatch_async(dispatch_get_main_queue(), ^{
-                                                                         strongSelf.failedAddingFriendBlock(error);
-                                                                     });
-                                                                 }
-                                                             } else {
-                                                                 CKReference *newFriendReference = [[CKReference alloc] initWithRecordID:recordId
-                                                                                                                                  action:CKReferenceActionDeleteSelf];
-                                                                 newFriend[@"friend"] = newFriendReference;
-                                                                 
-                                                                 [[[CKContainer defaultContainer] publicCloudDatabase] saveRecord:newFriend
-                                                                                                                completionHandler:^(CKRecord *record, NSError *error) {
-                                                                                                                    if (error) {
-                                                                                                                        dispatch_async(dispatch_get_main_queue(), ^{
-                                                                                                                            self.failedAddingFriendBlock(error);
-                                                                                                                        });
-                                                                                                                    } else {
-                                                                                                                        // Add the "add friend cell"
-                                                                                                                        [strongSelf.friends addObject:newFriend];
-                                                                                                                        if ([self addedFriendBlock]) {
-                                                                                                                            dispatch_async(dispatch_get_main_queue(), ^{
-                                                                                                                                self.addedFriendBlock();
-                                                                                                                            });
-                                                                                                                        }
-                                                                                                                    }
-                                                                                                                }];
-                                                             }
-                                                         }
-                                                     }];
+    [JCRCloudKitManager checkIfUsernameIsRegistered:username
+                                       successBlock:^(BOOL usernameExists) {
+                                           __strong typeof(self) strongSelf = weakSelf;
+                                           if (usernameExists) {
+                                               CKRecord *newFriend = [[CKRecord alloc] initWithRecordType:@"friend"];
+                                               [newFriend setObject:username
+                                                             forKey:@"username"];
+                                               CKRecordID *recordId = [[JCRCloudKitUser sharedInstance] currentUserRecordId];
+                                               CKReference *newFriendReference = [[CKReference alloc] initWithRecordID:recordId
+                                                                                                                action:CKReferenceActionDeleteSelf];
+                                               newFriend[@"friend"] = newFriendReference;
+                                               
+                                               [[[CKContainer defaultContainer] publicCloudDatabase] saveRecord:newFriend
+                                                                                              completionHandler:^(CKRecord *record, NSError *error) {
+                                                                                                  if (error) {
+                                                                                                      dispatch_async(dispatch_get_main_queue(), ^{
+                                                                                                          strongSelf.failedAddingFriendBlock(error);
+                                                                                                      });
+                                                                                                  } else {
+                                                                                                      // Add the "add friend cell"
+                                                                                                      [strongSelf.friends addObject:newFriend];
+                                                                                                      if ([strongSelf addedFriendBlock]) {
+                                                                                                          dispatch_async(dispatch_get_main_queue(), ^{
+                                                                                                              strongSelf.addedFriendBlock();
+                                                                                                          });
+                                                                                                      }
+                                                                                                  }
+                                                                                              }];
+                                           } else {
+                                               NSError *error = [NSError errorWithDomain:@"se.jagcesar"
+                                                                                    code:1
+                                                                                userInfo:@{NSLocalizedDescriptionKey: @"User doesn't exist"
+                                                                                           }];
+                                               if ([strongSelf failedAddingFriendBlock]) {
+                                                   strongSelf.failedAddingFriendBlock(error);
+                                               }
+                                           }
+                                       }
+                                       failureBlock:^(NSError *error) {
+                                           __strong typeof(self) strongSelf = weakSelf;
+                                           if ([strongSelf failedAddingFriendBlock]) {
+                                               strongSelf.failedAddingFriendBlock(error);
+                                           }
+                                       }];
 }
 
 - (void)sendYoToFriend:(CKRecord*)friend from:(CKRecord*)me {
