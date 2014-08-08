@@ -59,7 +59,9 @@ typedef NS_ENUM(NSInteger, JCRCellType) {
                                                      code:1
                                                  userInfo:@{NSLocalizedDescriptionKey: @"Already added"
                                                             }];
-                self.failedAddingFriendBlock(error);
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    self.failedAddingFriendBlock(error);
+                });
             }
             return;
         }
