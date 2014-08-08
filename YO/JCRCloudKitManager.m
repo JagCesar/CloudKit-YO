@@ -33,6 +33,7 @@
                                                       if (error) {
                                                           failureBlock(error);
                                                       } else {
+                                                          [[JCRCloudKitUser sharedInstance] setCurrentUserRecord:record];
                                                           [self __setupPushNotificationsForUsername:username];
                                                           dispatch_async(dispatch_get_main_queue(), ^{
                                                               successBlock();
@@ -98,9 +99,9 @@
                                  CKRecord *newFriend = [[CKRecord alloc] initWithRecordType:@"friend"];
                                  [newFriend setObject:username
                                                forKey:@"username"];
-                                 CKRecordID *recordId = [[JCRCloudKitUser sharedInstance] currentUserRecordId];
-                                 CKReference *newFriendReference = [[CKReference alloc] initWithRecordID:recordId
-                                                                                                  action:CKReferenceActionDeleteSelf];
+                                 CKRecord *record = [[JCRCloudKitUser sharedInstance] currentUserRecord];
+                                 CKReference *newFriendReference = [[CKReference alloc] initWithRecord:record
+                                                                                                action:CKReferenceActionDeleteSelf];
                                  newFriend[@"friend"] = newFriendReference;
                                  
                                  [[[CKContainer defaultContainer] publicCloudDatabase] saveRecord:newFriend
@@ -127,6 +128,29 @@
                          } failureBlock:^(NSError *error) {
                              failureBlock(error);
                          }];
+}
+
++ (void)sendYoToFriend:(CKRecord *)friendRecord
+          successBlock:(void (^)())successBlock
+          failureBlock:(void (^)(NSError *))failureBlock {
+    CKRecord *yoRecord = [[CKRecord alloc] initWithRecordType:@"YO"];
+    CKRecord *currentUserRecord = [[JCRCloudKitUser sharedInstance] currentUserRecord];
+    [yoRecord setObject:[currentUserRecord objectForKey:@"username"]
+                 forKey:@"from"];
+    [yoRecord setObject:[friendRecord objectForKey:@"username"]
+                 forKey:@"to"];
+    [[[CKContainer defaultContainer] publicCloudDatabase] saveRecord:yoRecord
+                                                   completionHandler:^(CKRecord *record, NSError *error) {
+                                                       if (error) {
+                                                           dispatch_async(dispatch_get_main_queue(), ^{
+                                                               failureBlock(error);
+                                                           });
+                                                       } else {
+                                                           dispatch_async(dispatch_get_main_queue(), ^{
+                                                               successBlock();
+                                                           });
+                                                       }
+                                                   }];
 }
 
 #pragma mark - Private functions

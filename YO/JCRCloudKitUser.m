@@ -19,7 +19,7 @@
     return sharedInstance;
 }
 
-- (void)fetchUserWithSuccessBlock:(void(^)(CKRecordID *recordId))successBlock
+- (void)fetchUserWithSuccessBlock:(void(^)(CKRecord *currentUserRecord))successBlock
                      failureBlock:(void(^)(NSError *error))failureBlock {
     __weak typeof(self) weakSelf = self;
     [[CKContainer defaultContainer] fetchUserRecordIDWithCompletionHandler:^(CKRecordID *recordID, NSError *error) {
@@ -29,10 +29,22 @@
                 failureBlock(error);
             });
         } else {
-            [strongSelf setCurrentUserRecordId:recordID];
-            dispatch_async(dispatch_get_main_queue(), ^{
-                successBlock(recordID);
-            });
+            CKQuery *query = [[CKQuery alloc] initWithRecordType:@"usernames"
+                                                       predicate:[NSPredicate predicateWithFormat:@"creatorUserRecordID = %@", recordID]];
+            [[[CKContainer defaultContainer] publicCloudDatabase] performQuery:query
+                                                                  inZoneWithID:nil
+                                                             completionHandler:^(NSArray *results, NSError *error) {
+                                                                 if (error) {
+                                                                     dispatch_async(dispatch_get_main_queue(), ^{
+                                                                         failureBlock(error);
+                                                                     });
+                                                                 } else if ([results count] > 0) {
+                                                                     [strongSelf setCurrentUserRecord:[results firstObject]];
+                                                                     dispatch_async(dispatch_get_main_queue(), ^{
+                                                                         successBlock([self currentUserRecord]);
+                                                                     });
+                                                                 }
+                                                             }];
         }
     }];
 }

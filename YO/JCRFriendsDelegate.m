@@ -9,7 +9,7 @@
 #import "JCRFriendsDelegate.h"
 #import "JCRFriendsDatasource.h"
 #import "JCRChooseUsernameCollectionViewCell.h"
-@import CloudKit;
+#import "JCRCloudKitManager.h"
 
 @implementation JCRFriendsDelegate
 
@@ -41,48 +41,29 @@ didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
         // Yo a Friend
         
         JCRChooseUsernameCollectionViewCell *cell = [collectionView cellForItemAtIndexPath:indexPath];
-        CKRecord *record = [self.datasource.friends objectAtIndex:[indexPath row]];
         [cell.label setHidden:YES];
         [cell.activityIndicatorView startAnimating];
         
-        [self.datasource setYoBlock:^(NSError *error) {
-            if (error) {
-                [cell.label setHidden:NO];
-                [cell.activityIndicatorView stopAnimating];
-                NSString *originalString = [cell.label text];
-                [cell.label setText:@"FAILED :("];
-                [cell.label performSelector:@selector(setText:)
-                                 withObject:originalString
-                                 afterDelay:2.f];
-            } else {
-                [cell.label setHidden:NO];
-                [cell.activityIndicatorView stopAnimating];
-                NSString *originalString = [cell.label text];
-                [cell.label setText:@"SENT!"];
-                [cell.label performSelector:@selector(setText:)
-                                 withObject:originalString
-                                 afterDelay:2.f];
-            }
-        }];
-        
-        __weak typeof(self) weakSelf = self;
-        [[CKContainer defaultContainer] fetchUserRecordIDWithCompletionHandler:^(CKRecordID *recordID, NSError *error) {
-            __strong typeof(self) strongSelf = weakSelf;
-            if (error) {
-                strongSelf.datasource.yoBlock(error);
-            } else {
-                [[[CKContainer defaultContainer] publicCloudDatabase] performQuery:[[CKQuery alloc] initWithRecordType:@"username"
-                                                                                                             predicate:[NSPredicate predicateWithFormat:@"creatorUserRecordID = %@", recordID]]
-                                                                      inZoneWithID:nil
-                                                                 completionHandler:^(NSArray *results, NSError *error) {
-                                                                     if (results.count == 1) {
-                                                                         [self.datasource sendYoToFriend:record from:[results firstObject]];
-                                                                     } else {
-                                                                         strongSelf.datasource.yoBlock(error);
-                                                                     }
-                                                                 }];
-            }
-        }];
+        CKRecord *friendRecord = [self.datasource.friends objectAtIndex:[indexPath row]];
+        [JCRCloudKitManager sendYoToFriend:friendRecord
+                              successBlock:^{
+                                  [cell.label setHidden:NO];
+                                  [cell.activityIndicatorView stopAnimating];
+                                  NSString *originalString = [cell.label text];
+                                  [cell.label setText:@"SENT!"];
+                                  [cell.label performSelector:@selector(setText:)
+                                                   withObject:originalString
+                                                   afterDelay:2.f];
+                              }
+                              failureBlock:^(NSError *error) {
+                                  [cell.label setHidden:NO];
+                                  [cell.activityIndicatorView stopAnimating];
+                                  NSString *originalString = [cell.label text];
+                                  [cell.label setText:@"FAILED :("];
+                                  [cell.label performSelector:@selector(setText:)
+                                                   withObject:originalString
+                                                   afterDelay:2.f];
+                              }];
     }
 }
 

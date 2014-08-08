@@ -11,11 +11,11 @@
 
 @interface JCRCloudKitUser : NSObject
 
-@property (nonatomic) CKRecordID *currentUserRecordId;
+@property (nonatomic) CKRecord *currentUserRecord;
 
 + (instancetype)sharedInstance;
 
-- (void)fetchUserWithSuccessBlock:(void(^)(CKRecordID *recordId))successBlock
+- (void)fetchUserWithSuccessBlock:(void(^)(CKRecord *currentUserRecord))successBlock
                      failureBlock:(void(^)(NSError *error))failureBlock;
 
 @end

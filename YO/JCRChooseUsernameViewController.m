@@ -41,21 +41,22 @@
     [self.collectionView setHidden:YES];
     __weak typeof(self) weakSelf = self;
     
-    [[JCRCloudKitUser sharedInstance] fetchUserWithSuccessBlock:^(CKRecordID *recordId) {
+    [[JCRCloudKitUser sharedInstance] fetchUserWithSuccessBlock:^(CKRecord *currentUserRecord) {
         __strong typeof(self) strongSelf = weakSelf;
-        [JCRCloudKitManager checkIfUsernameIsRegisteredWithRecordId:recordId
-                                                       successBlock:^{
-                                                           UIViewController *friendsViewController = [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"friends"];
-                                                           [strongSelf presentViewController:friendsViewController
-                                                                                    animated:YES
-                                                                                  completion:nil];
-                                                       }
-                                                       failureBlock:^(NSError *error) {
-                                                           dispatch_async(dispatch_get_main_queue(), ^{
-                                                               [strongSelf.collectionView setHidden:NO];
-                                                           });
-                                                       }];
-    } failureBlock:^(NSError *error) {
+        if ([currentUserRecord objectForKey:@"username"] != nil) {
+            UIViewController *friendsViewController = [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"friends"];
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [strongSelf presentViewController:friendsViewController
+                                         animated:YES
+                                       completion:nil];
+            });
+        } else {
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [strongSelf.collectionView setHidden:NO];
+            });
+        }
+    }
+                                                   failureBlock:^(NSError *error) {
 #warning What should we do if the user record id can't be fetched?
     }];
     

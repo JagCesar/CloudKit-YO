@@ -30,11 +30,11 @@ typedef NS_ENUM(NSInteger, JCRCellType) {
         [self setFriends:[NSMutableArray new]];
         
         __weak typeof(self) weakSelf = self;
-        CKRecordID *recordId = [[JCRCloudKitUser sharedInstance] currentUserRecordId];
+        CKRecord *record = [[JCRCloudKitUser sharedInstance] currentUserRecord];
         
         // Load friends
         CKQuery *query = [[CKQuery alloc] initWithRecordType:@"friend"
-                                                   predicate:[NSPredicate predicateWithFormat:@"friend = %@", recordId]];
+                                                   predicate:[NSPredicate predicateWithFormat:@"friend = %@", [record recordID]]];
         [[[CKContainer defaultContainer] publicCloudDatabase] performQuery:query
                                                               inZoneWithID:nil
                                                          completionHandler:^(NSArray *results, NSError *error) {
@@ -83,22 +83,6 @@ typedef NS_ENUM(NSInteger, JCRCellType) {
                                          strongSelf.failedAddingFriendBlock(error);
                                      }
                                  }];
-}
-
-- (void)sendYoToFriend:(CKRecord*)friend from:(CKRecord*)me {
-    CKRecord *yoRecord = [[CKRecord alloc] initWithRecordType:@"YO"];
-    [yoRecord setObject:[me objectForKey:@"username"]
-                 forKey:@"from"];
-    [yoRecord setObject:[friend objectForKey:@"username"]
-                 forKey:@"to"];
-    [[[CKContainer defaultContainer] publicCloudDatabase] saveRecord:yoRecord
-                                                   completionHandler:^(CKRecord *record, NSError *error) {
-                                                       if ([self yoBlock]) {
-                                                           dispatch_async(dispatch_get_main_queue(), ^{
-                                                               self.yoBlock(error);
-                                                           });
-                                                       }
-                                                   }];
 }
 
 #pragma mark - UICollectionViewDataSource

@@ -27,4 +27,8 @@
                  successBlock:(void(^)(CKRecord *newFriend))successBlock
                  failureBlock:(void(^)(NSError *error))failureBlock;
 
++ (void)sendYoToFriend:(CKRecord*)friendRecord
+          successBlock:(void(^)())successBlock
+          failureBlock:(void(^)(NSError *error))failureBlock;
+
 @end
