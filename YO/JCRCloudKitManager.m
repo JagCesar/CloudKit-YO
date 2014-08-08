@@ -7,7 +7,6 @@
 //
 
 #import "JCRCloudKitManager.h"
-@import CloudKit;
 
 @implementation JCRCloudKitManager
 
@@ -39,6 +38,29 @@
                                                           });
                                                       }
                                                   }];
+                            }
+                        }];
+}
+
++ (void)checkIfUsernameIsRegisteredWithRecordId:(CKRecordID*)recordId
+                                   successBlock:(void(^)())successBlock
+                                   failureBlock:(void(^)(NSError* error))failureBlock {
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"creatorUserRecordID = %@", recordId];
+    CKQuery *query = [[CKQuery alloc] initWithRecordType:@"usernames"
+                                               predicate:predicate];
+    [[self __publicDatabase] performQuery:query
+                             inZoneWithID:nil
+                        completionHandler:^(NSArray *results, NSError *error) {
+                            if (error || results.count == 0) {
+                                dispatch_async(dispatch_get_main_queue(), ^{
+#warning Set up an error if error is nil and results == 0
+                                    failureBlock(error);
+                                });
+                            } else {
+                                [self __setupPushNotificationsForUsername:[results.firstObject objectForKey:@"username"]];
+                                dispatch_async(dispatch_get_main_queue(), ^{
+                                    successBlock();
+                                });
                             }
                         }];
 }

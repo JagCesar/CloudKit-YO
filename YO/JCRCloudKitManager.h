@@ -7,11 +7,16 @@
 //
 
 #import <Foundation/Foundation.h>
+@import CloudKit;
 
 @interface JCRCloudKitManager : NSObject
 
 + (void)registerUsername:(NSString*)username
             successBlock:(void(^)())successBlock
             failureBlock:(void(^)(NSError* error))failureBlock;
+
++ (void)checkIfUsernameIsRegisteredWithRecordId:(CKRecordID*)recordId
+                                   successBlock:(void(^)())successBlock
+                                   failureBlock:(void(^)(NSError* error))failureBlock;
 
 @end
